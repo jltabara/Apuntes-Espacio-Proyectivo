@@ -1,0 +1,2029 @@
+\documentclass[a4paper, 12pt]{article}
+
+%%%%%%%%%%%%%%%%%%%%%%Paquetes
+\usepackage[spanish]{babel}  
+\usepackage{indentfirst} %%%%%%%%%%%%%%%%Crear un indent al principio
+\usepackage[latin1]{inputenc}%%%%%%%%%%%%ñ y acentos
+\usepackage{amstext}%%%%%%%%
+\usepackage{amsfonts}%%%%%%%
+\usepackage{amssymb}%%%%%%%% AMSLaTeX
+\usepackage{amscd}%%%%%%%%%%
+\usepackage{amsmath}%%%%%%%%
+\usepackage{enumerate}%%%%%%%%%%%%%%%%Mejoras del entorno enumerate
+\usepackage[all]{xy}
+\usepackage{latexsym}
+\usepackage{color}
+\usepackage[mathcal]{eucal}%%%%%%%Caligrafica matematica
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{tcolorbox}
+\usepackage{setspace}
+\onehalfspacing
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%Teoremas
+\newtheorem{teo}{Teorema}[section]%%%%%%%%% Teorema
+\newtheorem{defi}{Definición}[section]%%%%%%%% Definicion
+\newtheorem{lema}[teo]{Lema}%%%%%%%%%%%%% Lema
+\newtheorem{propo}[teo]{Proposición}%%%%%%%% Proposicion
+\newtheorem{cor}[teo]{Corolario}%%%%%%%%%%%Corolario
+\newtheorem{pro1}{}%[chapter]%%%%%%%%%Problema
+\newenvironment{pro}{\begin{pro1} \sf \small} {\end{pro1}}
+\newtheorem{*pro1}[pro1]{*}%%%%%%%%%%Problema complicado
+\newenvironment{*pro}{\begin{*pro1} \sf \small} {\end{*pro1}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%Comandos
+\newcommand{\dem}{\noindent\textbf{Demostración. }\vspace{0.3 cm}}%%Demostracion
+\newcommand{\R}{\mathbb{R}}%%%%%%%%%%%%Numeros reales
+\newcommand{\F}{\mathbb{F}}%%%%%%%%%%%%Cuerpo
+\newcommand{\C}{\mathbb{C}}%%%%%%%%%%%%Numeros complejos
+\newcommand{\Q}{\mathbb{Q}}%%%%%%%%%%%%Numeros racionales
+\newcommand{\N}{\mathbb{N}}%%%%%%%%%%%%Numeros naturales
+\newcommand{\Z}{\mathbb{Z}}%%%%%%%%%%%%Numeros enteros
+\newcommand{\cua}{\mathbb{H}}%%%%%%%%%%%%Cuaterniones
+\newcommand{\g}{\mathfrak{g}}%%%%%%%%%%%%Algebra de Lie del grupo G
+\newcommand{\V}{\mathcal{V}}%%%%%%%%%%%%Variedad
+\newcommand{\W}{\mathcal{W}}%%%%%%%%%%%%Variedad
+\newcommand{\h}{\mathfrak{h}}%%%%%%%%%%%%Algebra de Lie del grupo H
+\newcommand{\ind}{\textit{\bf{Indicación. }}}%%% Indicacion
+\newcommand{\fin}{ $\Box $ \vspace{0.4 cm}}
+\newcommand{\p}{\mathfrak{p}}%%%%%%%% Ideal primo
+\newcommand{\m}{\mathfrak{m}}%%%%%%%% Ideal maximal
+\newcommand{\limind}{\lim_{\longrightarrow} } 
+\newcommand{\gp}{\mathcal{G'}}%%%%%%%%%%%Algebra del grupo G'
+\newcommand{\lto}{\longrightarrow}%%%%%%Simplificacion de la flecha larga
+\newcommand{\wa}{\omega_2} %%%%%%%%%%%forma simplectica
+\newcommand{\Wa}{\Omega_2} %%%%%%%%%% forma simplectica lineal
+\newcommand{\lag}{\lambda_g}%%%%%%%%%%%%Traslacion a la izquierda
+\newcommand{\rg}{\rho_g}%%%%%%%%%%%%%%%%Traslacion a la derecha
+\newcommand{\Gr}{\boldsymbol{G}}%%%%%%%%%%Recubridor universal
+\newcommand{\norma}[1]{\: \parallel #1 \!\parallel\! }%%%Norma de un vector
+\newcommand{\abs}[1]{\left|\, #1 \right|}  %%%Valor absoluto 
+\newcommand{\Pro}{\mathbb{P}}%%%%%%Espacio proyectivo
+\newcommand{\Problemas}{\newpage  \begin{center}{\Huge Problemas}\end{center}}
+\newcommand{\Ejemplos}{\vspace{0.5 cm} {\bf Ejemplos}}
+\newcommand{\escalar}[2]{\left\langle\, #1,#2\, \right\rangle}  %%%Producto escalar 
+\newcommand{\campos}{\mathfrak{X} } %%%% Campos en una variedad
+\newcommand{\generado}[1]{\left\langle #1 \right\rangle}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%Operadores
+\DeclareMathOperator{\End}{End}%%%%%%%%%%Endomorfismo
+\DeclareMathOperator{\Ad}{Ad}%%%%%%%%%%Adjunta
+\DeclareMathOperator{\grad}{grad}%%%%%%%%%%Graciente
+\DeclareMathOperator{\Dif}{Dif}%%%%%%%%%%Diferenciales
+\DeclareMathOperator{\sop}{sop}%%%%%%%%%Soporte
+\DeclareMathOperator{\distancia}{d}%%%%%%%%Distancia
+\DeclareMathOperator{\sen}{sen}%%%%%%%%%%Seno español
+\DeclareMathOperator{\Der}{Der}%%%%%%%%%%Derivaciones
+\DeclareMathOperator{\rang}{rang}%%%%%%%%Rango
+\DeclareMathOperator{\Hom}{Hom}%%%%%%Homomorfismos
+\DeclareMathOperator{\Ann}{Ann}%%%%%%%Anulador
+\DeclareMathOperator{\Img}{Im} %%%%Parte imaginaria
+\DeclareMathOperator{\rad}{rad}%%%%%%%%Radical
+\DeclareMathOperator{\Ker}{Ker}%%%%%%%Nucleo
+\DeclareMathOperator{\Id}{Id}%%%%%%% Identidad
+\DeclareMathOperator{\GL}{GL}%%%%%%%%%Grupo lineal
+\DeclareMathOperator{\Apli}{Apli}%%%%%%Aplicaciones
+\DeclareMathOperator{\Bil}{Bil}%%%%%Bilineales
+\DeclareMathOperator{\Spec}{Spec}%%%%Espectro
+\DeclareMathOperator{\Aut}{Aut}%%%%Espectro
+\DeclareMathOperator{\Ob}{Ob}  %%% Objetos de una categoría
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%
+\title{Espacio Proyectivo}
+\author{José Luis Tábara}
+\date{jltabara@gmail.com}
+%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+
+
+\begin{tcolorbox}[colback=red!5!white,colframe=red!75!black]
+
+\vspace{-1cm}
+\maketitle
+
+\end{tcolorbox}
+
+\thispagestyle{empty}
+
+\tableofcontents
+
+\newpage
+
+
+\section{Lenguaje proyectivo}
+
+\subsection{Definición  y ejemplos} 
+
+
+Sea $E$ un espacio vectorial de dimensión finita sobre un  cuerpo conmutativo $k$ de característica arbitraria. En $E -\{0\}$ se define la  relación de equivalencia: $u \sim
+v$ cuando exista un $\lambda \in k-\{0\}$   tal que $u = \lambda
+v$. 
+
+\begin{defi}
+
+Al conjunto cociente lo llamaremos {\sf espacio proyectivo} 
+\index{espacio!proyectivo} asociado a $E$ y lo denotaremos por $\Pro(E)$.
+
+\end{defi}
+
+La aplicación de paso al cociente se llama {\sf proyección canónica} y se denota
+$$
+\begin{array}{cccc}
+\pi &  : E - \{0\} & \longrightarrow & \Pro(E) \\ 
+ & u  & \longrightarrow & \pi (u) %
+\end{array}
+$$
+aunque muchas veces escribiremos
+$$
+\begin{array}{cccc}
+\pi &  : E & \longrightarrow & \Pro(E) \\ 
+ & u  & \longrightarrow & \pi (u) %
+\end{array}
+$$
+a pesar de que la función no está definida en el cero.
+
+\smallskip
+
+Si $p= \pi(u)$, diremos que $p$ es la proyectivización de $u$, o bien que $u$ es un representante de $p$.  En general, los puntos del espacio proyectivo los denotamos con las letras $p,q,\dots$ y los vectores con $u,v,\dots$  También denotaremos por $\widehat p$ a un vector  tal que $\pi(\widehat p)=p$.  
+
+\smallskip
+
+Dos vectores son equivalentes si y solo si generan el mismo subespacio
+vectorial. Las clases de equivalencia son las rectas vectoriales a las que se les ha quitado el origen. Por ello el espacio proyectivo se identifica con el conjunto de
+rectas de $E$.   Esta observación nos permite dar una nueva definición de espacio proyectivo.
+
+\begin{defi}
+
+El \index{espacio proyectivo} {\sf espacio proyectivo} asociado a $E$ es el conjunto de todas las rectas vectoriales de $E$.
+
+\end{defi}
+
+En el caso en que $E= k^{n+1}$ denotaremos el espacio proyectivo por $\mathbb{P}^n$ o por $\mathbb{P}^n(k)$ si es necesario hacer referencia al cuerpo. Este es el {\sf espacio proyectivo canónico}.  La proyectivización de un punto $(x_0,\dots, x_n)$  se denota por
+$(x_0:\dots:x_n)$ (la separación son dos puntos).  Estas son las {\sf coordenadas homogeneas}\index{coordenadas homogeneas} del punto.  Obsérvese que  un  mismo punto del espacio proyectivo tiene infinitas coordenadas homogeneas, pero todas ellas son proporcionales
+$$
+(x_0:\dots:x_n)=(y_0:\dots:y_n) \Leftrightarrow \exists\,\,\,\lambda\in k-\{0\} \text{ tal que } \lambda x_i=y_i\,\,\forall \,i
+$$
+Veremos en estas notas que cualquier espacio proyectivo  puede ser dotado de unas coordenadas homogeneas.
+
+\bigskip
+
+\noindent{\bf Ejemplos.}
+
+\begin{itemize}
+
+
+\item Veamos una construcción que nos permita entender un poco más el concepto de espacio proyectivo.  Consideremos  en $k^{n+1}$ el hiperplano afín
+$$
+H=\{(x_0, \dots, x_n) \in k^{n+1} \text{ tales que } x_0=1\}
+$$
+Cada recta vectorial corta a $H$ como mucho en un punto.  Las rectas que no cortan a $H$ son las paralelas a $H$, que  son precisamente las rectas que están contenidas en el hiperplano vectorial paralelo a $H$.  Pero este conjunto de rectas es un espacio proyectivo, cuya dimensión es una unidad menor que el espacio proyectivo de partida.  Con estas identificaciones podemos escribir
+$$
+\Pro_n= H \cup \Pro_{n-1}
+$$
+A cada recta afín de $H$ le corresponde una recta vectorial del hiperplano vectorial, de tal manera que si dos rectas afines son paralelas, las rectas vectoriales correspondientes coinciden.  A cada haz de rectas paralelas le corresponde una única recta vectorial.  Geométricamente, los haces de rectas paralelas contenidas en $H$ se pueden entender como las \guillemotleft direcciones\guillemotright\ posibles de ese espacio afín.  Un espacio proyectivo de dimensión $n$ es un espacio afín de dimensión $n$ junto con todas sus posibles  \guillemotleft direcciones\guillemotright.  Los puntos del espacio proyectivo que no están contenidos en el hiperplano se denominan \index{punto de infinito} {\sf puntos del infinito} del espacio afín.  También es muy común escribir la descomposición anterior en la forma
+$$
+\Pro_n= H\cup H_\infty
+$$
+  En coordenadas homogeneas es muy fácil describir el conjunto de puntos del infinito: son aquellos puntos cuya primera coordenada es nula. Naturalmente la parte afín está formada por aquellos puntos cuya primera coordenada no es nula.
+
+
+\item En el ejemplo anterior, si tomamos un punto $p=(x_0:\dots:x_n)$ cuya primera coordenada no sea nula, le podemos hacer corresponder un único punto de $k^n$.
+$$
+\begin{array}{ccc}
+H& \rightarrow& k^n\\
+(x_0:x_1\dots:x_n)&\rightarrow&\left(\frac{x_1}{x_0}, \dots,\frac{x_n}{x_0}\right)
+\end{array}
+$$
+Esta correspondencia es claramente biyectiva.  La aplicación inversa es
+$$
+(x_1,\dots,x_n)\rightarrow (1:x_1:\dots:x_n)
+$$
+que es la forma (en coordenadas) de inyectar un espacio afín en un espacio proyectivo.
+
+
+\item Sea $k[x,y]$ el conjunto de polinomios en dos variables sobre el cuerpo~$k$.  El conjunto de polinomios homogeneos de grado $n$ es un subespacio vectorial de dimensión $n+1$ (una base es $\{x^n,x^{n-1}y,\dots, xy^{n-1}, y^n\}$).  Un punto del espacio espacio proyectivo asociado está formado por un polinomio y todos sus proporcionales.  Los puntos de este espacio proyectivo se denominan {\sf curvas algebraicas planas de grado n}.  Veamos la razón de esta nomenclatura.  Sea $P$ un polinomio en dos variables, homogeneo y de grado $n$.  A este polinomio se le puede asociar un subconjunto de $k^2$, que denotamos $V(P)$, formado por los \guillemotleft ceros\guillemotright\ del polinomio
+$$
+V(P)=\{(a,b)\in k^2 \text{ tales que } P(a,b)=0\}
+$$
+Si tomamos un polinomio proporcional a $P$, el conjunto es el mismo, por lo que dicho conjunto esta asociado de manera natural a un punto del espacio proyectivo.  En muchos casos familiares, tomando el cuerpo~$\R$, el conjunto $V(P)$ se asemeja al concepto intuitivo de curva plana.  Sin embargo el estudio de las curvas planas depende en gran medida del cuerpo base y puede hacerse extremadamente complicado.
+
+\item En $\R^{n+1}$ consideramos la esfera unidad $S^n$.  Cada recta vectorial corta a la esfera en dos puntos diametralmente opuestos. Por ello, el espacio proyectivo $\Pro_n(\R)$ se identifica al cociente de la esfera unidad, módulo la relación de equivalencia que identifica dos puntos antipodales.  Desde este punto de vista, cada clase de equivalencia tiene solamente dos puntos, que son $x$ y $-x$.
+
+\item En el caso real (y también en el complejo), la proyección canónica permite dotar de estructura topológica al conjunto cociente:  un conjunto $A\subset \Pro(E)$ es abierto si $\pi^{-1}(A)$ es un abierto de $E$.  Es lo que se conoce como topología cociente.  Este espacio topológico resulta ser una variedad diferenciable de dimensión $n$.  Además el espacio es compacto, puesto que es la imagen por $\pi$ de la esfera unidad, que es compacta.
+
+
+\item La estructura de variedad diferenciable de la que hablabamos en el punto anterior se consigue de la siguiente forma.  Ya hemos visto que el conjunto de puntos de $\Pro_n(\R)$ cuya primera coordenada no es nula está en correspondencia biunívoca, mediante una aplicación, que denotamos $\varphi_0$, con $\R^n$.  Si en el espacio proyectivo introducimos la topología del ejemplo anterior $\varphi_0$ es un homeomorfismo.  Sin consideramos el conjunto $U_i$ de los puntos del espacio proyectivo cuya coordenada $i$-ésima es no nula, podemos establecer un homeomorfismo $\varphi_i$ de $U_i$ con $\R^n$.  Tenemos en total un conjunto de $n+1$ cartas locales que recubren la variedad. Es fácil comprobar que los cambios de coordenadas $\varphi_i{\varphi_j}^{-1}$ son diferenciables.  Esta construcción la hemos hecho con el espacio proyectivo canónico.  Cuando introduzcamos coordenadas homogeneas en cualquier espacio proyectivo, este procedimiento es válido en cualquier espacio proyectivo.
+
+\item Trabajemos sobre la recta proyectiva canónica.  A cada escalar $\lambda$ de $k$ le asociamos el punto de coordenadas canónicas $(1:\lambda)$.  Con esto obtenemos todos los puntos de la recta proyectiva, salvo uno, que es precisamente $(1:0)$.  Es costumbre designar a este punto por $\infty$.  De este modo, cada recta proyectiva \guillemotleft es\guillemotright\ el cuerpo $k$ más el punto del infinito.  En el caso real la recta proyectiva es homeomorfa al círculo unidad y en el caso complejo es homeomorfa a la esfera bidimensional (usando la proyección estereográfica).
+
+\item Aunque no es el propósito  de estas notas, se puede demostrar  que el espacio proyectivo tridimensional sobre $\R$ es homeomorfo al grupo de la rotaciones $\mathrm{SO}(3,\R)$.
+
+
+\end{itemize}
+
+
+\subsection*{Problemas}
+
+
+ 
+ 
+
+
+ 
+ \begin{pro}
+ 
+ Sea $A$ un espacio afín de dimensión $n$ y $O$ un punto de dicho espacio.  El conjunto de rectas afines que pasan por $O$ es un espacio proyectivo de dimensión $n$. 
+ 
+ \end{pro}
+ 
+ 
+ \begin{pro}
+ 
+ Sea $A$ un espacio afín de dimensión $n$.  En el conjunto de rectas afines de $A$ consideramos la relación de equivalencia  dada por el paralelismo.  El conjunto cociente es un espacio proyectivo de dimensión $n-1$.  Esta construcción es esencialmente la misma que la del problema anterior.
+ 
+ \end{pro}
+ 
+  \begin{pro}
+
+Calcula cuantos puntos tiene la recta proyectiva sobre un cuerpo finito de $n$ elementos.
+
+\end{pro}
+
+ 
+
+\begin{pro}
+
+Calcula cuantos puntos tiene el plano proyectivo sobre el cuerpo $\Z_2$.
+
+\end{pro}
+
+\begin{pro}
+
+Sea $k$ un cuerpo finito de $q$ elementos.  El espacio vectorial $k^{n+1}$ tiene en total $q^{n+1}$ puntos.  Cada recta vectorial privada del origen tiene $q-1$ puntos.  Con estos datos demostrar que el espacio proyectivo $\Pro_n(k)$ tiene
+$$
+\frac{q^{n+1}-1}{q-1}= q^n+q^{n-1}+\dots+ q+1
+$$
+
+\end{pro}
+
+\begin{pro}
+
+Sea $E$ un espacio vectorial sobre $k$.  Considérese el espacio proyectivo $\Pro(k \times E )$.  Probar que $E$ es canonicamente isomorfo a un subconjunto del espacio proyectivo.  
+En coordenadas, esta inclusión anterior coincide con la proporcionada en el texto.
+
+\end{pro}
+
+
+
+
+
+
+
+\subsection{Subvariedades lineales} 
+
+Diremos que un subconjunto de $\Pro(E)$ es una {\sf subvariedad lineal} 
+\index{subvariedad!lineal}  cuando sea la imagen por la  proyección canónica 
+ de algún subespacio de $E$.  Dicho con otras palabras, $X \subset \Pro(E)$ es una subvariedad cuando $\pi^{-1}(X)\cup\{0\}$ es un subespacio vectorial. El subespacio que le corresponde a una subvariedad lineal es único y lo denotaremos por $\widehat X$.
+
+Si $V$ es un subespacio vectorial de $E$ y $X=\pi (V)$, diremos que $X$ es
+la proyectivización de $V$, y se verifica que los puntos de $X$ se
+corresponden, de modo canónico, con los del espacio proyectivo asociado a $V$.
+Por ello, cada subvariedad lineal se puede entender como un espacio
+proyectivo.  Debido al resultado anterior, muchos autores emplean el término de \index{subespacio proyectivo} {\sf subespacio proyectivo} para referirse a la subvariedades lineales y las denotan por $\Pro(V)$.  El conjunto vacío también se considerará, por convenio, una subvariedad
+lineal del espacio proyectivo. Será la proyectivización del subespacio $\{0\}$.
+
+
+
+La relación de inclusión entre subconjuntos de $\Pro(E)$ define una relación de
+orden en el conjunto de  subvariedades lineales que llamaremos {\sf incidencia}. \index{incidencia}
+ Si $X$,$Y$
+son dos subvariedades lineales tales que $X \subseteq Y$ diremos que $X$ e $%
+Y $ son incidentes. Si $X=Y$ diremos que son \index{coincidencia} coincidentes. 
+
+Este conjunto ordenado tiene una estructura de retículo 
+\index{retículo de subvariedades} con las siguientes definiciones de supremo e ínfimo
+$$
+\sup (X,Y) = X+Y= \pi (\widehat X+\widehat Y) 
+$$
+$$
+\inf (X,Y) = X\cap Y = \pi (\widehat X\cap \widehat Y) 
+$$
+
+La comprobación de estas propiedades es inmediata y se basa en el resultado equivalente para subespacios vectoriales. Las subvariedades
+lineales forman un retículo, cuyo primer elemento es el conjunto vacío y el último elemento es el espacio total. Además es claro que
+$$
+X \subset Y \quad \Leftrightarrow \quad \widehat X \subset \widehat Y
+$$
+ Hemos probado la
+
+\begin{propo} \label{propo:reticulo}
+
+Consideremos el retículo de subespacios y el de subvariedades lineales. La
+aplicación que manda a cada subespacio $V$ a su proyectivizado $\pi (V)$, es
+un isomorfismo de retículos.
+
+\end{propo}
+
+
+Desde el punto de vista clásico, el estudio de la geometría proyectiva es el estudio en profundidad de las operaciones y relaciones de incidencia entre subvariedades.  En geometría proyectiva clásica se parte de ciertos conceptos sin definir (lo que nosotros hemos llamado subvariedades lineales), como pueden ser el de punto, recta y plano.  Las relaciones entre dichos conceptos se expresan por medio de axiomas.  Algunos ejemplos de axiomas son:
+
+\begin{itemize}
+
+\item Por dos puntos distintos pasa una única recta.
+
+\item Cada recta tiene al menos tres puntos distintos.
+
+\item Dos rectas del plano proyectivo se cortan en un único punto.
+
+\item Por tres puntos no alineados del espacio proyectivo pasa un único plano.
+
+
+\end{itemize}
+
+Desde nuestro punto de vista, todos esos axiomas serán proposiciones y, por supuesto, todo lo que se puede deducir de dichos axiomas, también puede ser demostrado desde nuestro punto de vista.
+
+También es cierto, aunque de una dificultad mucho mayor, el recíproco.  Partiendo de determinados axiomas \guillemotleft clásicos\guillemotright\ se puede construir un cuerpo $k$ y una estructura de espacio vectorial (ver \cite{artalg}).  
+
+\smallskip
+
+
+
+Sea $S$ un subconjunto de $\Pro(E)$.  La intersección de todas las subvarie\-dades de $\Pro(E)$ que contienen a $S$ es una subvariedad lineal que denotamos por $\generado{S}$.  Por construcción, $\generado{S}$ es la mínima subvariedad que contiene a~$S$.
+
+\begin{defi}
+
+Diremos que $\generado{S}$ es la {\sf subvariedad lineal generada} \index{subvariedad!generada}  
+ por $S$. Si $\generado{S}=X$ decimos que $S$ es un \index{conjunto generador} {\sf conjunto generador} de la subvariead $X$.
+
+\end{defi}
+
+Dado el subconjunto $S$ consideramos su imagen inversa por $\pi$.  Como $\pi^{-1}(S)$ es un subconjunto de un espacio vectorial, existe un mínimo subespacio vectorial, $V$, que lo contiene.   En estas condiciones tenemos
+$$
+\pi(V) = \generado{S}
+$$
+por lo que la subvariedad generada es la proyectivización del subespacio generado por las rectas del conjunto.  Como en el caso de los espacios vectoriales, dadas dos subvariedades $X$ e $Y$, el conjunto generado por $X \cup Y$ es la subvariedad $X+Y$.  La suma de subvariedades se puede definir a partir únicamente de la intersección de variedades.
+
+
+\begin{defi} \label{def:dimension}
+Si $X=\pi (\widehat X)$ es una subvariedad lineal, llamaremos {\sf dimensión} \index{dimensión}
+ de $X$ al número 
+ $$
+ \mathrm{dim}(X)=\mathrm{dim}(\widehat X)-1
+ $$
+ y {\sf codimensión} \index{codimensión} a
+ $$
+\mathrm{codim}(X)=\mathrm{dim}(\Pro(E))-\mathrm{dim}(X)=\mathrm{dim}(E)-\mathrm{dim}(\widehat X)
+$$
+ 
+\end{defi}
+
+A la subvariedad $\varnothing$  se le asigna por convenio dimensión igual a $-1$. Las subvariedades lineales de dimensión cero son los puntos, las de dimensión uno las llamaremos {\sf rectas},\index{recta} las de dimensión dos {\sf planos} \index{plano} y las de codimensión uno \index{hiperplano} {\sf hiperplanos}.
+
+
+De las propiedades conocidas de los espacios vectoriales se deduce que dadas
+dos subvariedades $X$, $Y$ incidentes y de la misma dimensión,
+necesaria\-mente coinciden. Del mismo, modo si $X \subseteq Y$ entonces dim$%
+(X)\leq \mbox{dim}(Y)$ y el menor es estricto cuando la inclusión también lo
+es.
+
+La {\sf fórmula de las dimensiones} \index{fórmula de dimensiones}es válida para subvariedades:
+$$
+\mbox{dim}(X+Y)= \mbox{dim}(X) + \mbox{dim}(Y) - \mbox{dim}(X\cap Y) 
+$$
+
+Esto es consecuencia directa de las definiciones y de la fórmula análoga para
+subespacios vectoriales. De ello se pueden deducir consecuencias
+acerca de la intersección y la suma de subvariedades. 
+
+\bigskip
+
+\noindent{\bf Ejemplos.}
+
+\begin{itemize}
+
+\item  Si $p$ y $q$ son dos puntos distintos, entonces $p+q$ es la menor 
+subvariedad que pasa por $p$ y por $q$.  Veamos cual es su dimensión aplicando la fórmula anterior
+$$
+\mbox{dim}(p+q)=\mathrm{dim}(p)+\mathrm{dim}(q)-\mathrm{dim}(\varnothing)
+$$
+$$
+\mathrm{dim}(p+q)=0+0-(-1)=1
+$$
+Por lo tanto $p+q$ es una recta y además es única. {\bf Por dos puntos distintos
+pasa una única recta.}
+
+\item  Si tenemos dos rectas $r$ y $s$ de un plano proyectivo que no sean coindicentes, $r+s$ es una subvariedad que contiene a ambas y cuya dimensión tiene que ser mayor que $1$.  Como estamos en un plano proyectivo, necesariamente su dimensión es $2$.  Aplicando la fórmula de las dimensiones deducimos que dos rectas de un plano proyectivo se cortan en un punto, siempre que
+ambas rectas no sean coincidentes. {\bf En el plano proyectivo no
+hay rectas paralelas.} Obsérvese que dos  rectas  en cualquier espacio de dimensión mayor o igual que tres no necesariamente se cortan.
+
+\item  Si el espacio proyectivo tiene dimensión 3, un plano y una recta no
+contenida en dicho plano se cortan en un punto.
+
+\item En general, una recta y un hiperplano que no contiene a la recta, se cortan en un punto.
+
+\end{itemize}
+
+
+Si trabajamos en el espacio proyectivo canónico disponemos de un sistema de coordenadas homogeneas.  Con su ayuda se pueden escribir ecuaciones para las subvariedades.  Demos  algunos
+
+\bigskip
+
+
+\noindent{\bf Ejemplos.}
+
+
+\begin{itemize}
+
+
+\item Sea $p=(1,0, \dots, 0)$ y $q=(0,1,0,\dots,0)$.  Denotemos por $r$ la recta \mbox{$p+q$}.  Si $x=(x_0:\dots:x_n)$ es un punto cualquiera de esa recta, las coordenadas homogeneas de ese punto satisfacen el sistema
+$$
+\begin{cases}
+x_2=0\\
+x_3= 0\\
+\dotfill\\
+x_n=0
+\end{cases}
+$$
+y no depende para nada de las coordenadas homogeneas particulares que hayamos tomado.  Recíprocamente, si las coordenadas de un punto satisfacen el sistema de ecuaciones, dicho punto pertenece a la recta $r$.  Hemos dado las \index{ecuación implícita}{\sf ecuaciones implícitas} de la recta $r$.
+
+\item Sea $\widehat H$ un hiperplano vectorial.  Existe una forma lineal (en realidad existen varias) $\omega$ tales que $\mathrm{Ker}(\omega)= \widehat H$.  Si expresamos $\omega $ en la base dual de la canónica 
+$$
+\omega= \lambda_0\omega_0+\lambda_1\omega_1,\dots \lambda_n\omega_n
+$$
+los puntos de hiperplano proyectivo $H$ son aquellos que sus coordenadas homogeneas verifican la ecuación
+$$
+\lambda_0x_0+\lambda_1x_1+\dots+\lambda_nx_n=0
+$$
+Si en vez de considerar $\omega$ consideramos $\mu \omega$ también tenemos una forma lineal cuyo núcleo es  el hiperplano.  En este caso la ecuación es
+$$
+\mu\lambda_0x_0+\mu\lambda_1x_1+\dots+\mu\lambda_nx_n=0
+$$
+que se obtiene de la anterior multiplicando por $\mu$.
+
+
+\item Si una subvariedad viene definida por un sistema de $r$ ecuaciones y otra subvariedad por un sistema de $s$ ecuaciones, el sistema formado por las $r+s$ ecuaciones define la intersección de subvariedades.
+
+\item Sabemos que cualquier subespacio vectorial se puede expresar como una intersección de hiperplanos. Para ello basta tomar una base $\{e_1, \dots,e_p\}$ y completarla para obtener una base del espacio vectorial.  Si $\omega_i$ denota la base dual de nuestra base, entonces $\omega_{p+1},\dots,\omega_n$ definen hiperplanos cuya intersección es el subespacio de partida.  Debido a esto, cualquier subvariedad lineal se puede obtener a partir de un sistema de ecuaciones, cada una de ellas homogenea de primer grado.
+
+\item Si escribimos un sistema de ecuaciones polinomiales igualadas a cero, donde cada polinomio es homogeneo, se obtienen subconjuntos del espacio proyectivo, que se denominan \index{subvariedad!algebraica}{\sf subvariedades algebraicas}.  De su estudio se ocupa una rama de las matemáticas conocida como geometría algebraica.  Obsérvese que al tomar los polinomios homogeneos, si unas coordenadas del punto cumplen la ecuación, cualesquiera  otras coordenadas homogeneas de dicho punto, también cumple la ecuación.  Si los polinomios no son homogeneos esto no es necesariamente cierto.
+
+
+\end{itemize}
+
+Como vemos, el estudio de las ecuaciones implícitas de subvariedades es prácticamente el mismo que el estudio de las ecuaciones implícitas de subespacios.  
+
+
+\smallskip
+
+En el caso del plano proyectivo canónico, el producto vectorial nos puede ayudar a calcular  incidencias.  Recordemos que un punto $p$ de este espacio está descrito por sus coordenadas homogeneas $(x_0:x_1:x_2)$.  Una recta está definida por sus coordenadas respecto a la base dual.  Como una forma lineal y sus proporcionales definen la misma recta, cada recta $r$ está definida por tres coordenadas homogeneas $(r_0:r_1:r_2)$. 
+
+Si tenemos dos rectas, $r=(r_0:r_1:r_2)$ y $s=(s_0:s_2:s_3)$, el punto de intersección de ambas rectas tiene por coordenadas $r \wedge s$.  Comprobemos que dicho punto pertenece a la recta $r$.  Sustituimos el punto en la recta
+$$
+r_0(r_1s_2-r_2s_1)+r_0(-(r_0s_2-r_2s_0))+r_2(r_0s_1-r_1s_0)
+$$
+que es igual al determinante
+$$
+\det
+\begin{pmatrix}
+r_0&r_1&r_2\\
+r_0&r_1&r_2\\
+s_0&s_1&s_2
+\end{pmatrix}
+$$
+que es nulo.  Por lo tanto el punto $r\wedge s$ pertenece a la recta $r$.  Del mismo modo se comprueba que pertenece a $s$ y necesariamente es el punto de intersección.
+
+
+
+ Si tenemos dos puntos $p=(x_0:x_1:x_2)$ y $q=(y_0:y_1:y_2)$, la recta que los contiene $r= p+q$ tiene por coordenadas $p\wedge q$. Los cálculos son iguales y se basan todos en la relación que tiene el producto mixto con los determinantes.
+ 
+ Con razonamientos parecidos se prueban las siguientes afirmaciones:
+ 
+ \begin{itemize}
+ 
+ \item Un punto pertenece a una recta si el producto escalar (consideramos el producto escalar canónico de $\R^3$) del punto y la recta es nulo.
+ 
+ \item Tres puntos están alineados si el determinante formado con los tres vectores es nulo.
+ 
+ 
+ \item Tres rectas son concurrentes (las tres se cortan en un único punto) si el determinante formado con las tres rectas es nulo.
+ 
+ 
+ \end{itemize}
+ 
+ 
+ 
+ 
+ 
+ \subsection*{Problemas}
+
+
+ 
+ 
+ \begin{pro}
+
+Sea $X$ e $Y$ dos subvariedades lineales de $\Pro(E)$ tales que
+$$
+\mathrm{dim}(X)+\mathrm{dim}(Y)\geq \mathrm{dim}(\Pro(E))
+$$
+Entonces necesariamente $X$ e $Y$ se cortan.
+
+\end{pro}
+ 
+ 
+\begin{pro}
+
+Expresemos el espacio vectorial como suma directa $E=\widehat X \oplus \widehat Y$.  Entonces $X$ e $Y$ son dos subvariedades que no se cortan y tales que
+$$
+\mathrm{dim}(X)+\mathrm{dim}(Y)=\mathrm{dim}(\Pro(E))-1
+$$
+Demostrar que el recíproco es igualmente cierto.
+
+\end{pro}
+
+\begin{pro}
+
+Sea $X$ una subvariedad.  Si $p$ y $q$ son  dos puntos de $X$, la recta que los une, $p+q$ está contenida en $X$.  Demostrar el recíproco: si $X$ es un subconjunto tal que si contiene a dos puntos, también contiene a la recta que los une, entonces es una subvariedad.
+
+\end{pro}
+
+\begin{pro}
+
+Tres planos de un espacio proyectivo de dimensión $3$ tienen al menos un punto en común.
+
+\end{pro}
+
+\begin{pro}
+
+Sea $X$ una subvariedad de dimensión $m$.  Si $p$ no está en $X$, la únión de todas las rectas de la forma $p+q$ con $q \in X$ es una subvariedad de dimensión $m+1$.  Construir explícitamente el subespacio que  corresponde a dicha subvariedad.
+
+\end{pro}
+
+
+\begin{pro}
+
+Probar que un hiperplano proyectivo es una subvariedad maximal. Dado un hiperplano y un punto no contenido en dicho hiperplano, demostrar que su suma es el espacio proyectivo total.
+
+\end{pro}
+
+\begin{pro}
+
+Sean $X$  y $X'$ subvariedades.  Probar que $X+X'$ es justamente la variedad engendrada por el conjunto $ X\cup X'$.
+
+\end{pro}
+
+\begin{pro}
+
+Por tres puntos no alineados pasa un único plano proyectivo.
+
+\end{pro}
+
+\begin{pro}
+
+Sea $X$ una subvariedad de $\Pro(E)$ y $p$ un punto exterior a $X$.  Calcula la dimensión de $X+p$.
+
+\end{pro}
+
+ 
+ 
+ \subsection{Interpretación de los puntos del infinito}
+ 
+ En el espacio proyectivo canónico disponemos de ecuaciones de las subvariedades. Con su ayuda interpretaremos algunos resultados que nos servirán para entender un poco más el concepto de punto de infinito de la geometría proyectiva.  Todos los resultados se pueden demostrar de una manera intrínseca (sin usar coordenadas), aunque eso lo haremos más adelante. En toda esta sección consideramos la inyección natural del espacio afín en el proyectivo, donde la primera coordenada homogenea es la unidad 
+ $$
+ (x_1,x_2,\dots,x_n)\rightarrow (1:x_1:x_2\dots:x_n)
+ $$
+ 
+ 
+ 
+ Cualquier recta afín del plano se puede escribir en forma paramétrica
+ $$
+ \begin{cases}
+ x= a+\lambda \cdot u_1\\
+ y=b+\lambda \cdot u_2
+ \end{cases}
+ $$
+ Todo punto de la recta es entonces de la forma 
+ $$
+ (a+\lambda \cdot u_1, b+\lambda \cdot u_2)
+ $$  Si lo inyectamos en  el plano proyectivo las coordenadas de los puntos de la recta son
+ $$
+ (1:a+\lambda \cdot u_1:b+\lambda \cdot u_2)
+ $$
+ Si dividimos cada una de las coordenadas por $\lambda$, el punto del espacio proyectivo no varía
+  $$
+ (\frac{1}{\lambda}:\frac{a}{\lambda}+u_1: \frac{b}{\lambda}+ u_2)
+ $$
+En el caso real, si hacemos tender $\lambda$ hacia infinito (o menos infinito) el punto se va alejando. En este caso este punto \guillemotleft tiende\guillemotright\ hacia el punto
+$$
+(0:u_1:u_2)
+$$
+que es un punto del infinito.  Además, para cualquier punto del infinito se puede encontrar una recta (en realidad varias) que se adapte a la construcción anterior.  En el caso real está plenamente justificado llamar puntos del infinito a aquellos cuya primera coordenada es nula. En el  caso de cuerpos arbitrarios se llaman puntos del infinito por analogía con el caso real.  El mismo razonamiento es válido en cualquier dimensión. 
+
+\smallskip
+
+
+ Toda recta afín del plano tiene por ecuación implícita una de la forma
+ $$
+ r\equiv ax+by+c=0
+ $$
+ donde $a,b,c$ no pueden ser nulos simultaneamente.  Construimos la recta del espacio proyectivo
+ $$
+ r'\equiv ax_1+bx_2+cx_0=0
+ $$
+ Si un punto afín cumple la ecuación de $r$, su inyección como punto proyectivo cumple la ecuación de $r'$.  Además de todos estos puntos, la recta proyectiva tiene una solución más, que en coordenadas es
+ $$
+ (0:b:-a)
+ $$
+ que es un punto del infinito.    Si tomamos dos rectas afines $r$ y $s$, que se cortan en el punto $(\alpha,\beta)$, las rectas proyectivas asociadas se cortan en el punto proyectivo $(1:\alpha:\beta)$.  ¿Qué ocurre si las rectas son paralelas?  En este caso podemos tomar como ecuaciones
+ $$
+ \begin{cases}
+ r\equiv ax+by+c=0\\
+ s\equiv ax+by+d=0
+ \end{cases}
+ $$
+ Entonces las rectas $r'$ y $s'$ se cortan en el punto del infinito $(0:b:-a)$. {\bf Las rectas paralelas se cortan en el infinito.}
+ 
+ \smallskip
+ 
+ El procedimento de multiplicar el término independiente de la ecuación afín de una recta por la primera coordenada homogenea, se llama {\sf homogeneizar} y se puede hacer no solo con rectas sino con cualquier hiperplano.  Como toda subvariedad  afín $X$ es intersección de hiperplanos (afines), podemos homogeneizar todas las ecuaciones y obtener una subvariedad proyectiva $X'$ asociada a la subvariedad afín. Es lo que se llama homgeneizar la subvariedad afín.  Aunque no lo vamos a hacer en este momento se puede demostrar la 
+ 
+ \begin{propo}
+ 
+ Dos subvariedades afines $X$ e $Y$ son paralelas si y solo si las subvariedades proyectivas $X'$ e $Y'$ tienen su intersección en el hiperplano del infinito.
+ 
+ \end{propo}
+ 
+ 
+
+\subsection{Homografías.  Grupo proyectivo} 
+
+Si $T: E \rightarrow E^{\prime}$ es una aplicación lineal biunívoca\footnote{La construcción es válida siempre que la aplicación sea inyectiva}, la
+imagen por $T$ de cada recta de $E$ es una recta de $E'$. Ello nos
+permite construir una aplicación de $\Pro(E)$ en $\Pro (E')$ que
+denotaremos $\pi (T)$. Vendrá definida por la fórmula
+$$
+\pi (T) (\pi (u)) = \pi (Tu)) 
+$$
+
+La función no depende del representante tomado en cada clase de equivalencia por ser $T$  una aplicación lineal.
+Esta aplicación se llama proyectivización de~$T$. 
+
+
+\begin{lema}
+
+Si $T$ es isomorfismo, $\pi(T)$ es biunívoca.
+
+\end{lema}
+
+\dem
+
+Supongamos que $\pi(T)(x)=\pi(T)(y)$.  Entonces $T(\widehat x)$ y $T(\widehat y)$ son proporcionales.  Como $T$ es inyectiva, también son proporcionales  $\widehat x$ e $\widehat y$.  Pero entonces $x=y$ y la aplicación es inyectiva.
+
+Sea $y \in \Pro(E')$.  Como $T$ es epiyectiva, existe $\widehat x\in E$, tal que $T(\widehat x)=\widehat y$.  Pero entonces $\pi(T)(x)=y$ y la aplicación es epiyectiva. \fin
+
+\begin{defi}
+
+Una \index{proyectividad}{\sf proyectividad} u  \index{homografía} {\sf homografía} es una función de $\Pro(E)$ en $\Pro(E')$ dada por algún isomorfismo $T$.
+
+\end{defi}
+
+Si denotamos por $\varphi$ a la homografía, mediante $\widehat \varphi$ denotamos una aplicación lineal que al proyectivizarla nos de $\varphi$.  Esta aplicación lineal no es única, puesto que $T$ y $\lambda T$ definen siempre la misma proyectividad.  
+
+
+La proyectivización de $T$ hace que el diagrama siguiente sea conmutativo
+
+$$
+\xymatrix{
+E\ar[r]^T\ar[d]&  \ar[d]E' \\ 
+\Pro(E)\ar[r]^{\pi(T)} &   \Pro (E')
+}
+$$
+Si las aplicaciones lineales se pueden componer, sus homografías asociadas también y cumplen en este caso las siguientes propiedades:
+
+
+\begin{itemize}
+
+\item  $\pi (T\circ T')=\pi (T)\circ \pi(T')$
+
+\item  $(\pi (T))^{-1}=\pi (T^{-1})$
+
+\item  $\pi (\mathrm{Id})=\mathrm{Id}$
+
+\end{itemize}
+
+
+
+De las propiedades
+enunciadas anteriormente se deduce que el conjunto de homografías de un
+espacio proyectivo forman un grupo, que denotaremos $\mathrm{PGL}(E)$ \index{$PGL(E)$} y llamaremos {\sf grupo proyectivo}. \index{grupo!proyectivo}
+ La asociación $T\rightarrow\pi (T)$ es un morfismo de grupos de $\mathrm{GL}(E)$ en $\mathrm{PGL}(E)$. 
+Esta aplicación es, por definición, epiyectiva y su núcleo está formado por
+todas las homotecias. En efecto, si $\pi(T)= \mathrm{Id}$, todos los puntos de $\Pro(E)$ son fijos,  y entonces todos los vectores de $E$ son vectores propios de  $T$ y en este caso $T$ es necesariamente una homotecia (ver proposición \ref{propo:igualdad}). Este grupo así construido es el grupo de la geometría proyectiva. De su estudio
+nos ocuparemos con posterioridad.
+
+El siguiente resultado es fácil de probar.
+
+\begin{propo}
+
+Si $\varphi:\Pro(E)\rightarrow \Pro(E')$ es una homografía, la imagen de una subvariedad es otra subvariedad de la misma dimensión y la antiimagen de una subvariedad es también una subvariedad.
+
+\end{propo}
+
+\begin{cor}
+
+Cada homografía induce una biyección del retículo de subvariedades que conserva la dimensión y las relaciones de inclusión.
+
+\end{cor}
+
+Una homografía es una aplicación biyectiva del espacio proyectivo que transforma subvariedades en subvariedades de la misma dimensión. La pregunta es ¿existen otras aplicaciones biunívocas del espacio proyectivo que cumplan la misma propiedad? Que pueden existir otras aplicaciones además de las homografías se prueba en el problema \ref{pro:antilineal}. La respuesta total a esta pregunta depende en gran medida del cuerpo base y es el contenido del teorema fundamental de la geometría proyectiva.
+
+\subsection*{Problemas}
+
+ 
+ 
+ \begin{pro}
+ 
+ Demostrar que $\mathrm{PGL}(E)= \mathrm{Sl}(E)/\Z_2$.
+ 
+ \end{pro}
+ 
+ \begin{pro}
+ 
+ Dados dos hiperplanos, demostrar que existe una homografía que transforma uno en el otro.
+ 
+ Demostrar que toda homografía establece una aplicación biunívoca entre los hiperplanos del espacio proyectivo.
+ 
+ \end{pro}
+ 
+
+\begin{pro}\label{pro:antilineal}
+
+Sea $\tau$ un automorfismo del cuerpo $k$.  Si $E$ es un espacio vectorial sobre $k$ decimos que una aplicación $\varphi :E \rightarrow E$ es \index{aplicación semilineal} {\rm semilineal} si $\varphi $ es un morfismo de grupos y cumple $\varphi (\lambda x) = \tau(\lambda )\varphi (x)$.
+
+
+\begin{itemize}
+
+\item Demostrar que si $\varphi $ es semilineal y biyectiva, entonces puede definirse una aplicación entre espacios proyectivos.
+
+\item  Demostrar que dicha aplicación transforma puntos (proyectivos) alineados en puntos alineados.
+
+\item Demostrar que la aplicación induce un isomorfismo del retículo de subvariedades que conserva la dimensión.
+
+
+\end{itemize}
+
+\end{pro}
+
+\begin{pro}
+
+Sea $\sigma$ un automorfismo del cuerpo $k$.  Las aplicaciones biyectivas deducidas de aplicaciones semilineales biyectivas se denominan colineaciones.
+
+\begin{itemize}
+
+\item Demostrar que el conjunto de colineaciones de un espacio proyectivo es un grupo respecto a la composición. Lo denotamos $\mathrm{Col}(\Pro(E))$.
+
+\item Demostrar que el grupo proyectivo es un subgrupo del grupo de las colineaciones
+
+\item  Demostrar que la aplicación que a cada colineación le asigna el automorfismo asociado es un morfismo de grupos epiyectivo.  Calcular su núcleo.
+
+\end{itemize}
+
+\end{pro}
+
+
+
+
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+
+
+\subsection{Aplicaciones proyectivas}
+
+En el caso de las aplicaciones biyectivas no hay ningún problema para construir la aplicación proyectivizada, debido a que solamente el vector nulo  tiene como imagen el vector nulo.  Sin embargo, si una aplicación lineal tiene núcleo, la imagen de esos vectores no genera ninguna recta y no se puede definir la aplicación proyectivizada en dicho subconjunto.
+
+\begin{defi}
+
+Dada una aplicación lineal $T: E \lto E'$, se llama {\sf centro} de dicha aplicación  al proyectivizado de su núcleo, $Z=\pi (\Ker(T))$.  La \index{aplicación proyectiva} {\sf aplicación proyectiva}  $\pi(T)$ está definida en el complementario del centro y responde a la fórmula
+$$
+\pi(T)(\pi (u) = \pi (T(u))
+$$
+
+\end{defi}
+
+A pesar de que en realidad la aplicación $\pi(T)$ está definida en el conjunto $\Pro(E) -Z$ cometeremos el abuso de notación de escribir
+$$
+\pi(T) : \Pro(E) \rightarrow \Pro(E')
+$$
+teniendo claro  que dicha aplicación no está definida en todo el espacio.
+Como vemos las homografías no son sino las aplicaciones proyectivas asociadas a aplicaciones biyectivas. Seguimos denotando por $\widehat \varphi$ a  una aplicación lineal que de lugar a la aplicación proyectiva.
+
+
+\begin{propo}
+
+Dada una aplicación proyectiva $\varphi: \Pro(E) \rightarrow \Pro(E')$
+
+\begin{itemize}
+
+\item $\varphi$ es inyectiva si y solo si $\widehat \varphi$ es inyectiva.
+
+\item $\varphi$ es epiyectiva si y solo si $\widehat \varphi$ es epiyectiva.
+
+\end{itemize}
+
+\end{propo}
+
+\dem
+
+Si $\widehat \varphi$ es inyectiva y $\varphi(x)= \varphi(y)$, entonces $\widehat \varphi(\widehat x)= \lambda(\widehat \varphi(\widehat y))$, por lo que $\widehat x-\lambda \widehat y$ pertenece al núcleo.  Pero entonces $\widehat x$  y $\widehat y$ son proporcionales y $x=y$.
+
+Recíprocamente, si $\varphi$ es inyectiva, sea $u \in \mathrm{Ker}(\widehat \varphi)$.  Como $\varphi$ es no nula, debe existir un punto $p$ sobre el que esté definida. Naturalmente $\widehat p$ y $u$ son linealmente independientes.  Pero en este caso tenemos dos puntos, \mbox{$p$ y $q=\pi(\widehat p+u)$} cuya imagen por $\varphi$ es la misma.  Esta contradicción solamente se puede superar si $u=0$ y entonces hemos demostrado la inyectividad de~$\widehat \varphi$.
+
+El resto de la demostración sigue esquemas análogos. \fin
+
+
+\begin{propo}\label{propo:igualdad}
+
+Si dos aplicaciones lineales $T$ y $T'$ inducen la misma aplicación proyectiva, entonces son proporcionales.
+
+\end{propo}
+
+\dem
+
+Como inducen la misma aplicación proyectiva, necesariamente $T$ y $T'$ tiene el mismo núcleo, $\widehat Z$.  Descomponemos en suma directa el espacio vectorial
+$$
+E=\widehat Z \oplus F
+$$
+Tomamos un punto $u \in F$. Como las dos aplicaciones inducen la misma aplicación proyectiva, necesariamente existe un escalar $\lambda_u$ que cumple
+$$
+T(u)=\lambda_u T'(u)
+$$
+En principio, parece que el escalar depende del punto en cuestión, pero esto no es así.
+Si tomamos dos vectores linealmente independientes $u,v \in F$ y los sumamos $w=u+v$, por una parte tenemos
+$$
+T(w)= \lambda_w T'(w)= \lambda_w(T'(u)+T'(v))
+$$ 
+y por otra parte
+$$
+T(w)= T(u+v)= T(u)+T(v)= \lambda_uT'(u)+\lambda_vT'(v)
+$$
+Como $T'(u)$ y $T'(v)$ son independientes, vemos que el escalar es el mismo si los vectores son independientes.  Si los vectores son dependientes es mucho más sencillo probar que el escalar no varía.  Podemos afirmar que $T=\lambda T'$, puesto que coinciden sobre todos los  vectores de la forma $z+f$. \fin
+
+Dado un espacio vectorial $E$ de dimensión $n$, el conjunto de endomorfismos de $E$ es también un espacio vectorial y como tal tiene un espacio proyectivo asociado.
+
+\begin{cor}
+
+Las aplicaciones proyectivas de $\Pro(E)$ se corresponden biuní\-vocamente con los puntos del espacio proyectivo $\Pro(\mathrm{End}(E))$.  Su dimensión es $(n+1)^2-1$.
+
+\end{cor}
+
+En esta identificación, las homologías de $\Pro(E)$ se corresponden con la proyectivización del grupo lineal, que es un subconjunto del espacio proyectivo, pero que no es una subvariedad debido a que $\mathrm{GL}(E)$ no es un subespacio vectorial.  Este resultado se puede extender a las aplicaciones proyectivas entre dos espacios proyectivos, pero no entraremos en detalles.
+
+
+La imagen de una subvariedad por una aplicación proyectiva sigue siendo una subvariedad del espacio imagen, pero, en general, la dimensión no se conserva, pues depende de la intersección de dicha variedad con el centro.  La antiimagen de una subvariedad casi nunca es una subvariedad.  Sin embargo se puede solucionar el problema añadiendo el centro.
+
+\begin{propo}
+
+Sea $\varphi:\Pro(E)\rightarrow \Pro(E')$ una aplicación proyectiva.  Si $X$ es una subvariedad de $\Pro(E')$ entonces $\pi^{-1}(X) \cup Z$ es una subvariedad de $\Pro(E)$.
+
+\end{propo}
+
+\dem
+
+El subespacio asociado a $\pi^{-1}(X)\cup Z$ es justamente ${\widehat \varphi}^{-1}(\widehat X)$. \fin
+
+Se suele decir que $\pi^{-1}(X)\cup Z$ es la antiimagen de la subvariedad $X$, aunque en rigor sabemos que no es correcto.
+
+\smallskip
+
+
+
+El ejemplo más interesante de aplicaciones proyectivas  con centro es la {\sf proyección cónica}.  Sea $E= \widehat Z \oplus \widehat Y$ una descomposición en suma directa.  El proyector en el segundo factor, $T(z+y)=y$, es una aplicación lineal cuyo núcleo es~$\widehat Z$.  La imagen de $\pi(T)$ es la subvariedad $Y$ y su centro  es la  $Z$.  Estas dos subvariedades tienen intersección vacía y además
+$$
+\mathrm{dim}(Z)+\mathrm{dim}(Y)=\mathrm{dim}(\Pro(E))-1
+$$
+
+Esta aplicación presenta una interpretación geométrica interesante.  Sean $Z$ e $Y$ dos subvariedades disjuntas y tales que
+$$
+\mathrm{dim}(Z)+\mathrm{dim}(Y)=\mathrm{dim}(\Pro(E)-1
+$$
+  Si $a$ es un punto que no pertenece a $Z$, la subvariedad $Z+a$ tiene como dimensión $\mathrm{dim}(Z)+1$.  Si cortamos esta subvariedad con $Y$ obtenemos un único punto $p$
+$$
+p=(Z+a)\cap Y
+$$
+La función $a\rightarrow p$ es justamente la aplicación proyectiva asociada a la proyección en el segundo factor.  Hemos visto como esta aplicación se puede construir haciendo intervenir el espacio vectorial, pero también se puede construir utilizando únicamente conceptos proyectivos.
+
+En el plano proyectivo, si $Z$ es un punto e $Y$ una recta, debemos trazar el conjunto de rectas que parten de $a$ (una especie de cono) y posteriormente cortar dichas rectas con $Y$.  De este ejemplo proviene el nombre que se le ha asignado.
+
+
+\smallskip
+
+Tomemos ahora un punto $a$ y un hiperplano $H$ que no contenga al punto.  Podemos definir la proyección cónica
+$$
+\varphi: \Pro(E)-\{a\} \rightarrow H
+$$
+Si $H'$ es otro hiperplano que no contenga al centro de la proyección, restringiendo la aplicación cónica al hiperplano $H'$,  se tiene la función
+$$
+\varphi:H'\rightarrow H
+$$
+que se demuestra fácilmente que es una aplicación proyectiva.  Se dice que es la proyección de $H'$ en $H$ tomando como centro el punto $a$.
+
+
+Tomando hiperplanos intermedios, en número finito, se pueden construir aplicaciones proyectivas de $H$ en si mismo.  Esta claro que todas son homologías, ¿pero todas las homologías son composición de proyecciones cónicas?  Todavía debemos esperar para obtener la respuesta.
+
+
+
+
+
+
+
+\subsection{El espacio dual} \label{sec:espacio dual}
+
+
+Sea $E^*$ el espacio vectorial dual de $E$.  Sus elementos son las aplicaciones lineales de $E$ en el cuerpo base, que generalmente se denominan \index{foma lineal} {\sf formas lineales}.
+
+\begin{defi}
+
+Dado un espacio proyectivo $\Pro(E)$,  llamamos {\sf espacio proyectivo dual} a $\Pro(E^*)$.
+
+\end{defi}
+
+Los elementos del espacio proyectivo dual se suelen denotar con letras griegas y nosotros emplearemos fundamentalmente las letras $\omega$, $\omega',$ $\dots$  Como en dimensión finita un espacio vectorial y su dual tienen la misma dimensión, lo mismo le ocurre a los espacios proyectivos.
+
+Dado un elemento del dual $\omega \in \Pro(E^*)$, el núcleo de $\widehat \omega$ es un hiperplano vectorial.  Si tomamos otro representante, $\lambda\cdot \widehat \omega$, el núcleo es el mismo.  Proyectivizando dicho hiperplano obtenemos un hiperplano proyectivo, que denotaremos $H_\omega$, aunque esta notación no es estandard. Por construcción
+$$
+H_\omega= \pi(\mathrm{Ker}(\widehat \omega))
+$$
+Por todo lo dicho, podemos  definir el hiperplano directamente por la fórmula
+$$
+H_\omega=\{p\in \Pro(E)\text{ tales que } \omega(p)=0\}
+$$
+
+
+\begin{propo}
+
+La aplicación
+$$
+\begin{array}{ccc}
+\Pro(E^*)& \rightarrow & \mathrm{Hiperplanos}\,\, \mathrm{ de }\,\, \Pro(E)\\
+\omega & \rightarrow & H_\omega
+\end{array}
+$$
+es una biyección (llamada \index{biyección de dualidad} {\sf biyección de dualidad}).
+
+\end{propo}
+
+\dem
+
+Si $H_\omega=H_{\omega'}$ entonces $\mathrm{Ker}(\widehat \omega)=\mathrm{Ker}(\widehat \omega')$.  Descomponemos en suma directa el espacio vectorial
+$$
+E= \mathrm{Ker}(\widehat \omega)\oplus \langle a \rangle
+$$
+donde $a$ es cualquier elemento que no esté en el núcleo.  Como $\widehat \omega (a)$ y $\widehat \omega'(a)$ son no nulos, debe existir una constante (no nula) tal que $\widehat \omega(a)=\lambda \cdot\widehat \omega'(a)$.  Pero entonces sobre todo vector de $\mathrm{Ker}(\widehat \omega)\oplus \langle a\rangle$ las formas lineales $\widehat \omega$ y $\lambda\cdot\widehat \omega'$ coinciden y por lo tanto son iguales.  La aplicación es inyectiva.
+
+\smallskip
+
+Si $H$ es un hiperplano proyectivo, entonces
+$$
+E=\widehat H \oplus \langle a \rangle
+$$
+Definimos la aplicación
+$$
+\begin{array}{cccc}
+\widehat\omega_H:& \widehat H \oplus \langle a \rangle & \rightarrow & k \\
+   &  (h,\lambda a)& \rightarrow & \lambda
+   \end{array}
+   $$
+   Es claro que es  lineal y por la biyección de dualidad le corresponde el hiperplano $H$. \fin
+   
+   
+   Como los hiperplanos y los puntos están en correspondencia biunívoca, tiene sentido la  
+   
+   \begin{defi}
+   
+   Llamamos \index{haz de hiperplanos} {\sf haz de hiperplanos} a un conjunto de hiperplanos cuya imagen por la biyección de dualidad sea una recta.
+   
+   \end{defi}
+   
+   Dados dos hiperplanos $H_1$ y $H_2$ existe un único haz de hiperplanos que los contiene,  puesto que por dos puntos distintos pasa una recta.  Naturalmente cualquier otro par de hiperplanos del haz, definen el mismo haz de hiperplanos. Supongamos que $\omega_1$ y $\omega_2$ son dos formas lineales que definen los hiperplanos.  Entonces todo hiperplano del haz tiene por ecuación $\lambda\omega_1+\mu\omega_2$.  
+   
+   \begin{propo}
+   
+   Si $p\in H_1\cap H_2$ entonces $p$ pertenece a todos los hiperplanos del haz.  Si $p \not \in H_1\cap H_2$ entonces existe un único hiperplano del haz que pasa por $p$.
+   
+   \end{propo}
+   
+   \dem
+   
+   Con las notaciones anteriores, si $p$ pertenece a la intersección tenemos que $\omega_1(p)=0$ y $\omega_2(p)=0$.  La ecuación de cualquier hiperplano del haz es una combinación lineal de $\omega_1$ y $\omega_2$ y por lo tanto contiene a $p$.
+   
+   \smallskip
+   
+   Si $p$ no pertenece a la intersección, al menos uno de los escalares $\omega_1(p)$ y $\omega_2(p)$ no es nulo.  Supongamos que es no nulo el primero.  Si queremos que un hiperplano del haz contenga a $p$, el punto $p$ debe satisfacer la ecuación del hiperplano
+   $$
+   \lambda \cdot \omega_1(p) +\mu\cdot \omega_2(p)=0
+   $$
+   Como $\omega_1(p)$ es no nulo, podemos despejar $\lambda$ y existe un único hiperplano del haz que pasa por $p$. \fin
+   
+
+   
+   Si un punto $p$ pertenece a los dos hiperplanos, vista la ecuación anterior, también pertenece a todos los hiperplanos del haz.
+   
+   \begin{cor}
+   
+   Dados dos hiperplanos $H_1$ y $H_2$ todos los hiperplanos del haz que determinan contienen a la subvariedad $H_1 \cap H_2$.
+   
+   \end{cor}
+   
+   El recíproco de este resultado es también cierto, aunque requiere una pequeña demostración que dejamos en manos del lector.
+   
+   \begin{propo}
+   
+   Dados dos hiperplanos $H_1$ y $H_2$, el conjunto de hiperplanos que contienen a la subvariedad $X=H_1\cap H_2$ es un haz.
+   
+   \end{propo}
+   
+   
+   \begin{cor}
+   
+   Sea $X$ una subvariedad de dimensión $n-2$ de un espacio proyectivo de dimensión $n$.  El conjunto de hiperplanos que contienen a $X$ es un haz de hiperplanos.
+   
+   \end{cor}
+   
+   Del mismo modo que en las proposiciones anteriores se estudió la posición relativa de un haz de hiperplanos y un punto, se puede analizar la posición relativa de un haz y una recta.  Ahora pueden darse tres casos:
+   
+   \begin{itemize}
+   
+   \item La recta está contenida en $X=H_1\cap H_2$.
+   
+   \item La recta tiene un punto en común con $X$.
+   
+   \item La recta no tiene ningún punto en común con $X$.
+   
+   \end{itemize}
+   que puede analizar el lector.
+   
+   \smallskip
+   
+   
+   
+   Por analogía de la construcción de $H_\omega$, a cada subespacio vectorial $V\subset E$ se le asocia de manera natural un subespacio $V^0$ del espacio dual.  Decimos que $V^0$ es el \index{subespacio incidente} {\sf incidente} o \index{subespacio dual} {\sf dual} de $F$ y responde a la fórmula
+   $$
+   V^0=\{ \omega \in E^* \text{ tales que } \omega(p)=0 \text{ para todo } p \in V\}
+   $$
+   Tomando bases, es fácil demostrar que $\mathrm{dim}(V)+\mathrm{dim}(V^0)=\mathrm{dim}(E)
+   $.  Esto  da lugar a la siguiente construcción en los espacios proyectivos: tomamos una subvariedad $X$ y calculamos su subespacio asociado $\widehat X$.  A este subespacio le calculamos el incidente $(\widehat X)^0$ y posteriormente proyectivizamos en el dual.  Obtenemos una subvariedad del dual que se suele denotar $X^0$.  Es la subvariedad \index{subvariedad incidente}{\sf incidente} \index{subvariedad dual} o {\sf dual} de $X$.  Con todo lo visto, podemos dar una construcción más manejable
+   $$
+   X^0=\{ \omega \in \Pro(E^*) \text{ tales que } \omega(p)=0 \text{ para todo } p \in X\}
+   $$
+   Vemos ahora claramente que esta construcción es una generalización de la biyección de dualidad que hemos visto anteriormente.
+
+La siguiente proposición es consecuencia inmediata de las definiciones y de las propiedades análogas que se verifican en los espacios vectoriales.
+
+\begin{propo}
+
+Sean $X$ e $Y$ dos subvariedades de $\Pro(E^*)$.
+
+\begin{itemize}
+
+\item Si $X \subset Y $ entonces $Y^0 \subset X^0$
+
+\item $(X+Y)^0= X^0 \cap Y^0$
+
+\item $(X \cap Y)^0= X^0+Y^0$
+
+\end{itemize}
+
+\end{propo}
+
+\dem
+
+Demos, a modo de ejemplo, una demostración de la segunda propiedad. Las demás siguen patrones similares.
+
+\smallskip
+
+Si $\omega \in (X+Y)^0$, entonces $\omega(p)=0$ para cualquier punto $p \in X+Y$.  En particular $\omega $ se anula sobre todos los puntos de $X$ y sobre todos los puntos de $Y$.  Por lo tanto $\omega\in X^0\cap Y^0$.  Hemos demostrado la inclusión $(X+Y)^0\subset X^0 \cap Y^0$.
+
+\smallskip
+
+Si $\omega \in X^0\cap Y^0$ entonces $\omega$ se anula sobre todos los puntos de $X$ y sobre todos los puntos de $Y$.  Por linealidad, también se anula sobre todos los puntos que se pueden obtener sumando un punto de $X$ y otro de $Y$.  Pero esto es lo mismo que decir que $\omega(p)=0$ para todo punto de $X+Y$.  Hemos probado la inclusión que nos faltaba.\fin
+
+Podemos construir una aplicación
+$$
+\begin{array}{ccc}
+\mathrm{Subvariedades}\,\, \mathrm{ de }\,\, \Pro(E)& \rightarrow &\mathrm{Subvariedades}\,\, \mathrm{ de }\,\, \Pro(E^*)\\
+X & \rightarrow & X^0
+\end{array}
+$$
+que es la generalización de la biyección de dualidad a las subvariedades.  Mediante álgebra lineal se puede demostrar que en efecto esta aplicación es también una biyección.  Sin embargo, lo analizaremos de otro modo.  En dimensión finita existe un isomorfismo canónico entre un espacio vectorial y su bidual (el dual del dual).  En esta biyección tenemos que $V^{00}=V$ para todo subespacio vectorial.  Entonces, para toda subvariedad se tiene $X^{00}=X$.  Con esto en mente, es claro que la aplicación anterior es biyectiva.
+
+\bigskip
+
+\noindent{\bf Ejemplos.}
+
+\begin{itemize}
+
+\item $\mathrm{dim}(X^0)=\mathrm{codim}(X)-1$, fórmula que no es análoga a la de los espacios vectoriales.
+
+\item Gracias a la biyección de dualidad, $X^0$ se puede entender como un conjunto de hiperplanos, definidos en el mismo espacio proyectivo que contiene a $X$.  En esta interpretación
+$$
+X^0=\{ \mathrm{Hiperplanos}\,\, H \text{ tales que } X \subset H\}
+$$
+
+\item Si $\Pro(E)$ es un plano proyectivo, los hiperplanos son las rectas.  Si $p$ es un punto, $p^0$ es el conjunto de todas las rectas que pasan por $p$.  Es el \index{haz de rectas} {\sf haz de rectas} que pasa por $a$.
+
+\item Si $\omega$ es un punto del espacio proyectivo dual, su incidente es una subvariedad del bidual.  Pero como hemos identificado al bidual con el espacio de partida, entonces $\omega^0$ es una subvariedad del espacio proyectivo.  Es fácil comprobar que $\omega^0=H_\omega$, que es una notación que también emplearemos.
+
+\item Si tomamos una suma, incluso infinita de subvariedades, su incidente es la intersección de los incidentes. Lo mismo con intersecciones posiblemente infinitas.
+
+\end{itemize}
+
+
+La  dualidad se puede utilizar para \guillemotleft traducir\guillemotright\ teoremas, teniendo en mente que a cada subvariedad le corresponde su subvariedad dual, a la intersección le corresponde la suma y a la suma la intersección.  El teorema obtenido tras la traducción se denomina teorema dual. El teorema dual es verdadero si y solo si es verdadero el teorema de partida.  Demos algunos ejemplos de traducción en el caso del plano proyectivo:
+
+\smallskip
+
+{\bf Enunciado sin dualizar:} Por dos puntos pasa una recta.
+
+En un lenguaje más formalizado esto se enuncia: la suma (como subvariedades) de dos puntos proyectivos es una recta.  Su traducción mediante  la biyección de dualidad es: la intersección de dos hiperplanos es el dual de la recta.  Como los hiperplanos en el plano proyectivo son las rectas y el dual de una recta es un punto, tenemos
+
+{\bf Enuncidado dual:} La intersección de dos rectas es un punto.
+
+\smallskip
+
+Otro ejemplo en el plano proyectivo.
+
+{\bf Enunciado sin dualizar:} Tres puntos $p$, $q$, $r$ están alineados.
+
+
+{\bf Enuncidado dual:} Las tres rectas $p^0$, $q^0$, $r^0$ se cortan en un punto.
+
+
+\subsection{Cambio de base} \label{sec:cambio}
+
+Si $E$ es un espacio vectorial sobre $k$, para cada extensión $k
+\hookrightarrow K$ del cuerpo base el morfismo inyectivo $E\hookrightarrow
+E \otimes_k K$ define una inyección de $\Pro(E)$ en $\Pro(E \times_k K)$. El último espacio proyectivo se construye consi\-derándolo como $K$-espacio y no como $k$-espacio. La inyección manda a cada punto $\pi (e)$ al punto $\pi
+(e \otimes 1)$.
+
+Diremos que $\Pro(E \otimes_k K)$ se obtiene del espacio primitivo por un
+{\sf cambio de cuerpo base}. \index{cambio de cuerpo base} También diremos que los puntos de $\Pro( E \otimes_k K)$
+son los puntos de $\Pro(E)$ con valores en la extensión $K$.
+
+Del mismo modo que para subvariedades de dimensión cero, a cada subvariedad $%
+X$ se le asigna una subvariedad del espacio obtenido por cambio de base, $%
+X_K = \pi (V \otimes_k K)$ si $X= \pi (V)$. Esto inyecta el retículo de $\Pro(E)$
+en el del espacio extendido. La dimensión y la incidencia son estables por
+cambio de base. Es decir se cumple:
+
+\begin{itemize}
+\item  dim$(X_{K})$=dim$(X)$
+
+\item  $(X_{K})^{o}=(X^{o})_{K}$ mediante el isomorfismo $(E \otimes
+_{k}K)^{*}=E^{*}\otimes _{k}K$.
+\end{itemize}
+
+Por supuesto la dimensión de $X_K$ se calcula entendiendo el espacio
+extendido como un $K$-espacio.
+
+Como las propiedades geométricas son estables por cambio de cuerpo base, es
+suficiente demostrarlas después de hacer una extensión, con lo que puede
+suponerse que el cuerpo base es algebraicamente cerrado, (recordemos que todo cuerpo admite
+una extensión algebraicamente cerrada).
+
+Del mismo modo que a las subvariedades, a cada proyectividad $\varphi = \pi
+(\varphi)$ le podemos asociar una proyectividad del espacio extendido mediante la fórmula $\varphi_K =\pi (\varphi \otimes 1)$. De esta manera se inyecta el grupo
+lineal proyectivo del espacio $E$ en el grupo lineal proyectivo de $E\otimes_k
+K$ (como $K$-espacio).
+
+\newpage
+
+\section*{Problemas}
+
+ \addcontentsline{toc}{section}{Problemas}
+ 
+ 
+\begin{pro}
+
+Sea $\Pro(E)$ un espacio proyectivo de dimensión mayor que dos.  Sea $p$ un punto.  El conjunto de rectas que pasan por el punto $p$ es un espacio proyectivo. Calcular su dimensión.
+
+\end{pro}
+
+
+
+
+
+\newpage
+
+
+\section{Sistemas de referencia} \label{cha:sistemas}
+
+\subsection{Puntos independientes}
+
+Traduciremos al lenguaje proyectivo el concepto de independencia lineal de vectores.  Todas las demostraciones de nuestras afirmaciones serán las mismas que en el caso de los espacios vectoriales.
+
+\begin{defi}
+
+Dados un conjunto finito de puntos, $\{p_1,\dots ,p_s\}$, del espacio proyectivo, decimos que son \index{puntos independientes}{\sf independientes} si los vectores $\{\widehat p_1, \dots,\widehat p_s\}$ son linealmente independientes. En caso contrario se dice que son \index{puntos dependientes} {\sf dependientes}.
+
+\end{defi}
+
+Las familias de puntos independientes también se dice que son \index{puntos libres} {\sf libres} y las dependientes también se llaman \index{puntos ligados} {\sf ligadas}.
+
+Como en esta definición hemos tomado representantes de los vectores, debemos probar que la definición es independiente de los representantes. En efecto, los vectores $\{\widehat p_1,\dots ,\widehat p_s\}$ son linealmente independientes si solo si $\{\lambda_1\widehat p_1, \dots,\lambda_s\widehat p_s\}$ también los son.
+
+La noción de independencia de vectores se puede analizar también a través de la noción de  rango.
+
+\begin{defi}
+
+Dado un conjunto de puntos de un espacio proyectivo,  el \index{rango} {\sf rango} del conjunto es la dimensión de la subvariedad lineal que generan.
+
+\end{defi}
+
+Un conjunto de vectores $\{u_1,\dots,u_s\}$ es linealmente independiente si su rango es $s$.  En el caso proyectivo tenemos el
+
+\begin{cor}
+
+Un conjunto de puntos $\{p_0,\dots,p_s\}$ es independiente si su rango es $s$.
+
+\end{cor}
+
+\begin{cor}
+
+Un conjunto de puntos $\{p_0,\dots,p_s\}$ es {\sf dependiente} \index{puntos dependientes} si su rango es estrictamente menor que $s$.  En este caso debe existir un punto que pertenezca a la subvariedad generada por el resto de los puntos.
+
+\end{cor}
+
+Este corolario permite una nueva definición de independencia, que no recurre al álgebra lineal.
+
+\begin{defi}
+
+Un conjunto de puntos es independiente si cada punto no pertenece a la subvariedad generada por el resto de puntos.
+
+\end{defi}
+
+\noindent{\bf Ejemplos.}
+
+\begin{itemize}
+
+\item Un punto es siempre independiente.
+
+\item Dos puntos son independientes si son distintos.
+
+\item Tres puntos son independientes si no están alineados: si $\{p_0,p_1,p_2\}$ no están alineados, entonces $p_i$ no pertenece a la subvariedad (en este caso una recta) generada por los otros dos puntos.
+
+\item En un espacio proyectivo de dimensión $n$, cualquier familia de puntos independientes se puede completar hasta obtener $n+1$ puntos independientes. Es imposible que haya más de $n+1$ puntos independientes en un espacio proyectivo de dimensión $n$.
+
+\item En una subvariedad $X$ de dimensión $s$ siempre podemos tomar $s+1$ puntos independientes, puesto que $\widehat X$ es un subespacio vectorial de dimensión $s+1$.  Dichos puntos generan la subvariedad $X$.
+
+\item Si los puntos $\{p_1,\dots,p_s\}$ son dependientes, podemos tomar un subconjunto de ellos que sea independiente y que generen la misma subvariedad lineal.  Siempre podemos tomar como generadores de cualquier subvariedad un conjunto de puntos independientes.
+
+\item Si un conjunto de puntos es independiente, la imagen de dichos puntos por una homología es también independiente, puesto que los puntos imagen generan una subvariedad de la misma dimensión que la de partida.  Si la aplicación no es una homología este resultado no es necesariamente cierto.
+
+\end{itemize}
+
+
+\subsection{Ecuaciones paramétricas}
+
+ Trabajaremos en esta sección en el espacio proyectivo canónico dotado de coordenadas homogeneas.
+Como toda subvariedad está generada por un conjunto de puntos independientes, podemos introducir las ecuaciones paramétricas.  Dada una subvariedad $X$ de dimensión $s$, existen $s+1$ puntos independientes $\{p_0,\dots,p_s\}$.  Si formamos todas las posibles combinaciones lineales de vectores representativos
+$$
+\lambda_0\widehat p_0+\lambda_1\widehat p_1\dots+\lambda_s\widehat p_s
+$$
+obtenemos todos los vectores del subespacio vectorial $\widehat X$.  Si formamos todas las posibles combinaciones de las coordenadas homogeneas de los puntos, obtenemos la {\sf ecuación paramétrica vectorial} \index{ecuación paramétrica vectorial} de la subvariedad. Esta es una ecuación vectorial que da lugar a $n+1$ ecuaciones, una por cada coordenada.  Si denotamos por $(x_0:x_1:\dots:x_n)$ las coordenadas de un punto de la subvariedad,  las ecuaciones son
+$$
+\begin{cases}
+x_0=\lambda_0p_0^0+\lambda_1p_1^0 +\dots+ \lambda_sp_s^0\\
+x_1=\lambda_0p_0^1+\lambda_1p_1^1 +\dots+ \lambda_sp_s^1\\
+\dotfill\\
+x_n=\lambda_0p_0^n+\lambda_1p_1^n +\dots+ \lambda_sp_s^n\\
+\end{cases}
+$$
+donde las coordenadas homogeneas del punto $p_i$ son $(p_i^0:p_i^1:\dots:p_i^n)$.  Un punto de coordenadas $(x_0:x_1:\dots:x_n)$  pertenece a la subvariedad si sus coordenadas homogeneas satisfacen las ecuaciones anteriores para ciertos valores de $\lambda_i$ (salvo el caso en que todos los $\lambda_i$ sean nulos).  Recíprocamente, para cualquier valor de las $\lambda_i$  el punto obtenido pertenece a la subvariedad.
+ Estas son las {\sf ecuaciones paramétricas} de la subvariedad $X$.  Como vemos estas ecuaciones no son únicas puesto que dependen de los puntos independientes que hayamos elegido.  Observamos también la gran analogía entre estas ecuaciones y las ecuaciones paramétricas en espacios vectoriales o afines.
+
+
+\bigskip
+
+\noindent{\bf Ejemplos.}
+
+
+\begin{itemize}
+
+\item Dados dos puntos $p$ y $q$ del espacio proyectivo canónico, de coordenadas homogeneas
+$p= (p_0:p_1:\dots:p_n)$ y $q= (q_0:q_1:\dots:q_n)$, las coordenadas paramétricas de la recta $r$ que contiene a ambos puntos son
+$$
+\begin{cases}
+x_0= \lambda p_0+\mu q_0\\
+x_1= \lambda p_1+\mu q_1\\
+\dotfill\\
+x_n= \lambda p_n+\mu q_n\\
+\end{cases}
+$$
+
+
+\item Sabemos que una recta y un hiperplano que no la contiene se cortan en un único punto.  ¿Cuál es el mejor método para calcular dicho punto?  Expresemos la recta en paramétricas y el hiperplano en implícitas.  Sustituimos la expresión de $x_i$ obtenida en la ecuaciones paramétricas, en la ecuación del hiperplano.  Obtenemos una ecuación de primer grado en dos variables, $\lambda$ y $\mu$.  Le damos a $\lambda$ valor $1$ y obtenemos una ecuación de primer grado en $\mu$.  Si esta ecuación se puede resolver, lo hacemos.  Sustituimos $\lambda$ por $1$ y $\mu$ por el valor obtenido en las ecuaciones paramétricas y tenemos el punto intersección.  Si al igualar $\lambda$ a $1$ la ecuación no es resoluble, entonces igualamos $\mu$ a $1$ y necesariamente la ecuación  en $\lambda$ que nos queda se puede resolver.
+
+
+\item Realizemos un ejemplo práctico para aplicar el método anterior. Encontremos el punto de corte del hiperplano $2x_0+3x_1-2x_2+5x_3=0$ y la recta generada por los puntos $p=(1:5:4:1)$ y $q=(0:1:2:3)$.
+
+\begin{itemize}
+
+\item Primero comprobamos que alguno de los dos puntos no está en el hiperplano, pues si ambos están, la recta que los contiene también y el problema estaría mal planteado.  Sustituimos las  coordenadas de $p$ en la ecuación del hiperplano
+$$
+2\cdot 1+3\cdot 5-2\cdot 4+5\cdot 1=14 \neq 0
+$$
+El punto $p$ no está en el plano.
+
+\item Escribimos las ecuaciones paramétricas de la recta que pasa por $p$ y por $q$.
+$$
+\begin{cases}
+x_0=\lambda\\
+x_1=5\lambda+\mu\\
+x_2=4\lambda+2\mu\\
+x_3=\lambda+3\mu
+\end{cases}
+$$
+
+\item Sustituimos las $x_i$ en la ecuación del hiperplano
+$$
+2(\lambda)+3(5\lambda+\mu)-2(4\lambda+2\mu)+5(\lambda+3\mu)=0
+$$
+y le damos el valor $1$ a $\lambda$.  Tras operar tenemos la ecuación
+$$
+14\mu+14=0
+$$
+de donde obtenemos que $\mu=-1$.
+
+\item Sustituimos $\lambda $ por $1$ y $\mu$ por $-1$ en la ecuación de la recta y obtenemos el punto $x$ de coordenadas $(1:4:2:-2)$.  Es el punto de intersección, pues pertenece a la recta al ser obtenido para ciertos valores de $\lambda$ y $\mu$ y también pertenece al hiperplano, como se comprueba inmediatamente.
+
+
+
+\end{itemize}
+
+\end{itemize}
+
+
+
+
+
+\subsection{Coordenadas homogeneas} \label{sec:coordenadas}
+
+
+
+Dado un espacio proyectivo $\Pro(E)$ de dimensión $n$, supongamos que tenemos una base $\{e_0,e_1,\dots,e_n\}$ del espacio vectorial $E$.  Todo vector $u$ de $E$ se expresa de modo único
+$$
+u=x_0e_0+x_1e_1+\dots+x_ne_n
+$$
+Asignemos a $u$ las coordenadas $(x_0:x_1:\dots:x_n)$. A un múltiplo de $u$ le asignamos las mismas coordenadas, pero multiplicadas por una constante no nula.  Hemos visto que fijada una base del espacio vectorial, podemos asociar unas coordenadas homogeneas  a todos los puntos del espacio proyectivo y podemos entonces trabajar igual que en el espacio proyectivo canónico.  Si en vez de la base considerada, tomamos la base $\{\lambda e_0,\lambda e_1, \dots,\lambda e_n\}$ las coordenadas homogeneas construidas son exactamente las mismas. Por lo tanto, a una familia de bases proporcionales se le puede asociar unas coordenadas homogeneas.  Si las bases no son proporcionales, existen puntos que no tienen las mismas coordenadas homogeneas. 
+
+Nuestra primera intuición para construir dichas bases puede ser tomar $n+1$ puntos independientes $\{p_o,p_1,\dots,p_n\}$, del espacio proyectivo, puesto que entonces tomando representantes 
+$$
+\{\widehat p_o,\widehat p_1,\dots,\widehat p_n\}
+$$
+ obtenemos una base.  Pero esta construcción presenta el problema puesto que del mismo modo podemos obtener otra base 
+ $$
+ \{\lambda_0\widehat p_o,\lambda_1\widehat p_1,\dots,\lambda_n\widehat p_n\}
+ $$
+  que no es proporcional.  Este método no nos conduce a la construcción de coordenadas homogeneas. Introduciremos algo de notación y algunos conceptos nuevos para conseguir crear esa familia de bases proporcionales.
+  
+  \begin{defi}
+
+
+
+Si $\Pro(E)$ es un espacio proyectivo de dimensión $n$, diremos que un
+conjunto de $n+1$ puntos $\{p_0,p_1,\ldots , p_n\}$ es un {\sf símplice} \index{símplice}
+ cuando generen el espacio total. Los hiperplanos resultantes de
+quitar un punto al símplice se denominan \index{caras de un símplice} {\sf caras del símplice}. 
+
+
+\end{defi}
+
+
+
+
+\begin{defi} \label{def:sistema de referencia}
+
+Diremos que una sucesión ordenada de $n+2$ puntos 
+$$
+{\bf R}=\{p_{0},p_{1},\dots ,p_{n},u\}
+$$
+es un {\sf sistema de referencia}, \index{sistema de referencia} cuando al quitar un punto cualquiera nos quede
+un símplice. Diremos que los primeros $n+1$ puntos forman el {\sf símplice de
+referencia} y que $u$ es el \index{punto!unidad} {\sf punto unidad}. 
+
+\end{defi}
+
+
+Dado un sistema de referencia si es posible construir una colección de bases proporcionales del espacio vectorial como prueba la
+
+\begin{propo} \label{propo:sistema de referencia}
+
+Sea ${\bf R}=(p_0,p_1,\dots ,p_n,u)$ un sistema de referencia. Exis\-te una
+base, única salvo un factor de proporcionalidad, $\{e_0,e_1,\dots, e_n\}$  tal que $p_{i}=\pi (e_{i})$ y $u=\pi (e_0+e_1+\dots + e_n)$. La proporcionalidad
+significa que si $\{e'_0,e'_1,\dots,e'_n\}$ es otra base que cumpla el teorema
+entonces se cumple $e'_i=\lambda e_i$ para todo $i$,  donde $\lambda $ es un
+escalar no nulo.
+
+\end{propo}
+
+\dem
+
+ Elijamos vectores $\widehat p_i$ tales que representen a cada
+punto $p_i$. Entonces estos vectores forman un base del espacio vectorial. Podemos escribir
+$$
+u =\lambda_0 \widehat p_0 + \lambda_1 \widehat p_1+\dots + \lambda_n \widehat p_n 
+$$
+para ciertos escalares $\lambda_i$ ninguno de los cuales puede ser nulo (si $\lambda_i$ es nulo, al quitar el punto $p_i$ el resto de los puntos no generan el espacio total, en contradicción con la definición de sistema de referencia). Si denotamos por $e_i$ al vector $\lambda_i \widehat p_i$, obtenemos una base que verifica el enunciado.
+
+ Si dos bases $\{e_0,e_1,\dots,e_n\}$ y $\{e'_0,e'_1,\dots,e'_n \} $ cumplen el enunciado entonces
+ $$
+ e_i=\mu_i e'_i \quad \text{ y} \quad
+ e_0+e_1+\dots+e_n = \lambda( e'_0+e'_1+\dots+e'_n)
+ $$ 
+de donde se deduce que $\lambda = \mu_i$ y $e'_i =\lambda e_i$. \fin
+
+
+\begin{defi}
+
+La base construida (o mejor dicho, las bases construidas) en la proposición anterior a partir de una referencia ${\bf R}$ se dice que es la \index{base normalizada} {\sf base normalizada} asociada a la referencia.  Las coordenadas homogeneas a las que da lugar se dice que están asociadas a la referencia.
+
+\end{defi}
+
+
+Si fijamos una referencia, tenemos a nuestra disposición coordenadas homogeneas y dispondremos de todo el arsenal de la geometría analítica que hemos estudiado en el espacio proyectivo canónico.  Pero todavia tenemos más, puesto que podemos elegir sistemas de referencia adaptados a nuestro problema, lo que normalmente simplifica mucho los cálculos.
+
+\bigskip
+
+\noindent{\bf Ejemplos.}
+
+
+
+\begin{itemize}
+
+
+\item  Dada una referencia ${\bf R}=\{p_0,p_1,\dots ,p_n,u\}$, las coordenadas de los puntos son
+$$
+p_0=(1:0:\dots:0), \quad p_1=(0:1:0:\dots:0),\dots,p_n=(0:0:\dots:1)
+$$
+y las del  punto unidad
+$$
+u=(1:1:\dots:1)
+$$
+lo que explica su nombre.
+
+\item Si en el espacio proyectivo canónico tomamos como símplice de referencia el asociado a la base canónica y como punto unidad el punto $(1:1:\dots:1)$, las coordenadas homogeneas que obtenemos son las mismas con las que hemos estado trabajando en números anteriores.
+
+
+\item El hiperplano resultante de quitar el punto $p_i$ al símplice de referencia tiene, en estas coordenadas, la ecuación más simple posible, que es 
+$$
+x_i=0
+$$
+También son muy sencillas las ecuaciones de cualesquiera subvariedades generadas por los puntos  del símplice, pues se obtienen como intersección de estos hiperplanos.
+
+\item En un espacio proyectivo de dimensión $n$, cualquier familia independiente cuyo cardinal sea menor o igual que $n+1$ se puede completar hasta obtener un sistema de referencia.  En este sistema de referencia, las coordenadas homogeneas de estos puntos son muy sencillas.
+
+
+\item Si permutamos el símplice de referencia, obtenemos  una nueva referencia y por lo tanto otra base y otras coordenadas homogeneas.  Sin embargo estás nuevas coordenadas son simplemente la permutación de las antiguas.  Sin embargo, si se permuta también el punto unidad, las nuevas coordenadas sufren un cambio mucho más profundo que la simple permutación.
+
+
+ \item En una recta proyectiva, dar una referencia es dar tres puntos distintos y ordenados.
+ 
+\item En un plano proyectivo una referencia está formada por cuatro puntos.  Los tres primeros formarán un
+triángulo y el último no podrá estar sobre los lados del triángulo.
+
+
+\end{itemize}
+
+Hemos visto que una vez dada una referencia, podemos tomar coordenadas homogeneas, que serían el análogo a los vectores fila o columna del álgebra lineal.  Las aplicaciones proyectivas, cuando se expresan en coordenadas,  dan lugar a las matrices.  Fijada una referencia, tenemos una base del espacio vectorial.  A cada proyectividad $\varphi$ se le puede asociar una aplicación lineal $\widehat \varphi$.  Si expresamos esta aplicación lineal en la base dada por la referencia tendremos la {\sf matriz de $\varphi$ en la referencia ${\bf R}$}.  Si cambiamos la base o cambiamos la aplicación lineal, la matriz se multiplica por un escalar no nulo.  Hemos vuelto a demostrar que, fijada una referencia, a cada proyectividad de podemos asociar un punto del espacio proyectivo construido con las matrices cuadradas de orden $n+1$ (siendo $n$ la dimensión del espacio proyectivo).
+
+El siguiente resultado es un clásico del álgebra lineal.
+
+\begin{cor} \label{cor:sistemas de referencia}
+
+Dados dos sistemas de referencia en sendos espacios proyectivos de la misma
+dimensión, existe una única proyectividad que transforma el primer sistema
+en el segundo.
+
+\end{cor}
+
+\dem
+
+ Sean $\{e_i\}$ y $\{e'_i\}$ dos bases asociadas a los sistemas de referencia. La aplicación lineal $\varphi$ que transforma una base en la otra da al proyectivizarla una aplicación que
+cumple el enunciado. Como las bases son únicas, salvo un factor de
+proporcionalidad la aplicación lineal construida puede diferir también en un factor de proporcionalidad que no tiene importancia al proyectivizar la aplicación lineal. \fin
+
+
+En particular, como tres puntos distintos de una recta proyectiva forman siempre un sistema de referencia, existe una homografía que los transforma cualquier terna de puntos dados en otra terna arbitraria.
+
+\vspace{1 cm}
+
+Cambio de base falta.
+
+
+\subsection{Razón doble de cuatro puntos alineados} \label{sec:razon}
+
+Sean $P_1,P_2,P_3,P_4$ cuatro puntos distintos y ordenados de una recta
+proyectiva. Llamaremos {\sf razón doble} \index{razón!doble} de la cuaterna anterior al cociente de la
+primera coordenada homogénea del punto $P_4$, por la segunda, en la
+refe\-rencia ${\bf R}=(P_1,P_2,P_3)$. Este número lo denotaremos $(P_1,P_2;P_3,P_4)$.
+
+Para ver cual es ese número se emplea una base normalizada. El resultado es
+independiente de la base escogida, pues todas difieren en un factor de
+proporcionalidad que se anula en los cálculos. La definición es correcta en el sentido de que la segunda coordenada homogénea no puede ser nunca cero por ser los puntos distintos.
+
+La propiedad fundamental de la razón doble es su invariancia por
+proyectividades. Si $\varphi$ es un proyectividad entonces 
+$$
+(\varphi (P_1),\varphi (P_2);\varphi (P_3),\varphi (P_4) = (P_1,P_2;P_3,P_4) 
+$$
+
+Del mismo modo del corolario \ref{cor:sistemas de referencia}
+se sigue que si dos cuaternas de puntos tienen la misma razón doble,
+entonces existe una única proyectividad que transforma la primera cuaterna
+en la segunda. De todo lo dicho podemos extraer el siguiente
+
+\begin{teo} \label{teo:razon}
+
+La condición necesaria y suficiente para que dos cuaternas de una recta proyectiva tengan la misma razón doble es que estén ligadas por una proyectividad. Dicha proyectividad
+es única.
+
+\end{teo}
+
+\begin{defi} \label{def:armonica}
+
+Diremos que una cuaterna de puntos alineados y ordenados es {\sf armónica} \index{cuaterna armónica} cuando
+su razón doble sea -1. También se dirá que $P_{4}$ es el {\sf conjugado armónico} \index{conjugado armónico}
+de $P_{3}$, respecto a la pareja $(P_{1},P_{2})$.
+
+\end{defi}
+
+
+\noindent{\bf Observación.}
+
+\smallskip
+
+ Conociendo las coordenadas homogeneas de los cuatro puntos
+de una cuaterna en un cierto sistemas de referencia se puede calcular
+facilmente en función de ellos la razón doble.  Sin embargo no lo haremos debido a su tediosidad.  El lector interesado puede consultar algún texto de geometría proyectiva donde esto venga desarrollado.
+
+\subsection{Sistemas de referencia duales}
+
+Este concepto es el análogo al de las bases duales en los espacios vectoriales.  Diremos que un sistema de referencia ${\bf R}$ es el dual de un sistema de referencia ${\bf R^*}$ en el espacio dual, cuando existan dos bases normalizadas asociadas con ${\bf R}$ y ${\bf R^*}$ que sean duales entre si.  Veremos ahora que condiciones, expresadas en lenguaje proyectivo, son necesarias y suficientes para que dos sistemas de referencia sean duales.  Para ello necesitamos unos preliminares.
+
+Sea ${\bf R}$ una referencia.  Por $P_i$ denotamos los puntos del símplice y por $U$ el punto unidad.  $P$ un punto que no sea incidente con las caras del símplice (que no pertenezca a ninguna cara).  Llamaremos $P_{ij}$ al punto de intersección de la recta $P_i+P_j$ con el hiperplano $P_0+\dots +\stackrel{\circ}{P_i}+\dots+\stackrel{\circ}{P_j}+\dots+ P_n+P$.  El círculo encima de un punto indica que ese punto no está.
+
+\begin{lema}
+
+Si $\{x_i\}$ son las coordenada homogeneas de $P$ en la referencia ${\bf R}$, entonces se verifica
+$$\frac{x_i}{x_j} = (P_i, P_j; U_{ij}, P_{ij})$$
+
+\end{lema}
+\dem\
+
+
+
+Sea $\{e_i\}$ una base normalizada y $\{w_i\}$ la base dual.  La forma lineal $x_jw_i - x_iw_j$ es un representante del incidente del hiperplano $P_0+\dots +\stackrel{\circ}{P_i}+\dots+\stackrel{\circ}{P_j}+\dots+ P_n+P$.  Así que el vector $x_ie_i+x_je_j$ representa  a $P_{ij}$.  En consecuencia $e_i$, $e_j$ forman una base normalizada asociada a la referencia $(P_i,P_j;U_{ij})$ de donde se sigue el lema.
+
+\begin{teo} \label{teo:duales}
+La condición necesaria y suficiente para que una referencia ${\bf R} = ( \{P_i\} ; U)$ de un espacio
+proyectivo $\Pro(E)$ y una referencia del espacio dual  ${\bf R^*} = ( \{P_i^*\} ; U^*)$ estén en dualidad es que se verifique:
+\begin{enumerate}
+
+ \item $P_i^*$ es la cara opuesta al vertice $P_i$ del símplice de referencia. (Naturalmente entendiendo como hiperplanos los puntos del espacio dual).
+
+\item La intersección del hiperplano $U^*$ con la recta $P_i^* + P_j^*$ es el conjugado armónico del $U_{ij}$ respecto del par $(P_i,P_j)$.
+
+\end{enumerate}
+
+\end{teo}
+
+\dem\  
+
+La necesidad se deja al lector ávido de conocimientos.  Veamos la suficiencia.
+
+Sean $\{e_i\}$ y   $\{w_i\}$ bases normalizadas asociadas a los sistemas de refe\-rencia.  La primera condición nos dice que $w_i(e_j) = 0$ siempre que $i \neq  j$.  La intersección de $U^*$ con $P_i +P_j$ está representada por el vector 
+$$w_j(e_j).e_i - w_i(e_i).e_j$$  
+
+La segunda condición nos establece que $$w_i(e_i) =w_j(e_j)$$ lo que concluye el teorema.
+
+\noindent{\bf Observación.}
+
+\smallskip
+
+
+ Recordar que la intersección de un hiperplano y una recta no incluida en él es siempre un punto.  También es de utilidad recordar que $U^*$ esta representado por el vector $\sum w_i$.
+
+\subsection*{Problemas}
+
+\addcontentsline{toc}{section}{Problemas}
+
+\begin{pro}
+
+Dado  un plano proyectivo, con $(P_0, P_1, P_2; U)$ una referencia proyectiva, hallar las ecuaciones de las rectas
+que forman el símplice de referencia.  Hallar las ecuaciones de las rectas $P_0 + U , P_1 +U$ y $P_2 +U$.
+
+\end{pro}
+
+\begin{pro}
+
+Dado un espacio proyectivo $\Pro (E)$ y su dual $\Pro (E^*)$, probar que los puntos del dual son independientes
+si solo si las ecuaciones implicitas de dichos hiperplanos son independientes.
+
+\end{pro}
+
+
+\newpage
+
+\section{El espacio afín} \label{cha:afin}
+
+\subsection{Definición de espacio afín} 
+
+\begin{defi}
+
+Llamaremos {\sf espacio afín} \index{espacio!afín} al par formado por un espacio proyectivo y un hiperplano del mismo
+
+\end{defi}
+
+Si $(P, H)$ es un espacio afín diremos que $P-H = P\cap H^c$ es la {\sf zona afín} \index{zona afín} y que $H$ es el {\sf hiperplano del infinito}.\index{hiperplano!del infinito} Los puntos de la zona afín se llamarán {\sf puntos propios} \index{punto!propio} y los de $H$ {\sf puntos impropios} \index{punto!impropio} o puntos del infinito o direcciones del espacio afín.
+
+Llamaremos {\sf subvariedades afines} de un espacio afín a las subvariedades lineales que no están contenidas en el hiperplano del infinito.  La intersección de cualquier subvariedad afín con el hiperplano del infinito es una subva\-riedad lineal de dimensión una menos que la dimensión de la subvariedad de partida.
+
+Las subvariedades afines están determinadas por su intersección con la zona afín.  Ello quiere decir que si dos subvariedades $X$ e $Y$ tienen la misma intersección con la zona afín, necesariamente coinciden.
+
+Cada subvariedad afín puede considerarse también como un espacio afín, tomando como zona del infinito su intersección con el hiperplano del infinito.
+
+Cuando dos subvariedades afines  tengan intersecciones con el hiperplano del infinito que sean incidentes, diremos que dichas subvariedades son {\sf para\-lelas}. \index{subvariedades!paralelas} 
+
+\subsection{Coordenadas afines} \label{sec:coordenadas afines}
+
+Una referencia ${\bf R}$ de un espacio proyectivo es una {\sf referencia afín} \index{referencia afín} cuando
+$P_1+P_2+\ldots+P_n$ sea el hiperplano del infinito.  En este caso al punto $P_0$ lo llamaremos origen de la referencia y a las rectas $P_i+P_j$ los {\sf ejes} \index{ejes de una referencia afín} de dicha referencia.
+
+Si ${\bf R}$ es una referencia afín y $\{x_i\}$ las coordenadas homogeneas de un punto $P$, ocurre que $P$ es punto propio precisamente cuando $x_0 \neq 0$.  Por ello la sucesión de escalares 
+$$ \left(\frac{x_1}{x_0}, \frac{x_2}{x_0}, \ldots ,\frac{x_n}{x_0}\right)$$
+está correctamente definida cuando $P$ es un punto de la zona afín.
+
+En consecuencia, cada referencia afín define una biyección entre la zona afín y el conjunto $K^n$. A pesar de ello la zona afín no puede considerarse un espacio vectorial, al depender la biyección de la referencia afín escogida y no existir procedimiento canónico para elegir la referencia afín.
+
+La razón doble induce un concepto nuevo en el espacio afín: la {\sf razón simple}. \index{razón!simple} Sean $A$, $B$, $C$ tres puntos propios distintos alineados y sea $D$ la intersección de la recta que generan con el hiperplano del infinito.    La razón simple es por definición la razón doble de la cuaterna $A$, $B$, $C$, $D$.  Se denotará por $(A,B,C)$.
+
+\subsection{Afinidades}
+
+Dado un espacio afín, diremos que una proyectividad es una {\sf afinidad} \index{afinidad} cuando deje estables todos los puntos del infinito.  Esto es, cada punto del infinito se transforma en otro punto del infinito, pero no necesariamente en él mismo.  Una afinidad induce una biyección de la zona afín.
+
+Las afinidades forman un subgrupo del grupo lineal proyectivo.  La geo\-metría afín es el estudio de los conjuntos donde actue el grupo de las afinidades (o {\sf grupo afín}). \index{grupo!afín}
+
+Veamos que el grupo afín actua libremente sobre la zona afín.  Para ello basta ver que si una proyectividad induce la identidad en la zona afín necesariamente es la identidad del espacio proyectivo.  Ello es consecuencia de que cada punto del infinito es el corte de una recta afín y el propio hiperplano.
+
+Si $\pi(\varphi)$ es una afinidad del espacio afín $(\Pro(E),\pi(V))$ entonces $\varphi(V) = V$ y así que $\varphi$ pasa como aplicación lineal biunívoca al espacio cociente $E/V$.  Necesariamente es una homotecia pues el espacio tiene dimensión uno.  En consecuencia existe un representante que induce la identidad en $E/V$.
+
+Diremos que esa aplicación es el {\sf representante normalizado} \index{representante normalizado} de la afinidad dada.  De este modo se obtiene que el grupo afín es canónicamente isomorfo al subgrupo de $GL(E)$ formado por los automorfismos que dejan invariante $V$ e inducen la identidad en $E/V$.
+
+
+\newpage
+
+\subsection*{Problemas}
+
+\addcontentsline{toc}{section}{Problemas}
+
+\begin{pro}
+Encontrar las ecuaciones paramétricas de una subvariedad afín en una referencia afín.
+
+Encontrar las ecuaciones implicitas de una subvariedad afín.
+
+Dado un espacio afín la ecuación del hiperplano del infinito en una refe\-rencia afín es $x_0= 0$.
+
+\end{pro}
+
+\begin{pro}
+
+Encontrar la matriz que le corresponde a un representante normalizado.
+
+Ver matricialmente que el grupo afín es un subgrupo del grupo lineal.
+
+\end{pro}
+
+
+
+
+\newpage
+
+\section{El grupo proyectivo}
+
+Examinemos ahora con más detenimiento el  grupo proyectivo y el grupo de los isomorfismos del retículo de subvariedades.
+
+Es conocido que cada proyectividad $T$ induce un isomorfismo de retículos.  Dada una proyectividad $\varphi$ la aplicación $ \overline{\varphi}$ que manda a la subvariedad $X$ a $\varphi(X)$ es un isomorfismo.  La única que induce la identidad en el retículo es la proyectividad identidad.
+
+Ocurre y sucede que estos no son todos los isomorfismos interesantes del conjunto de subvariedades lineales.
+
+\subsection{Colineaciones}
+
+Diremos que una aplicación biunivoca entre espacios proyectivos de la misma dimensión es una {\sf colineación} \index{colineación} (o {\sf proyectividad de Staud}) \index{proyectividad!de Staud} cuando transforme ternas de puntos alineados en ternas de puntos alineados.
+
+\begin{lema}
+
+Sea $ \beta :\Pro(E)\rightarrow  \Pro (E')$ una colineación. Entonces se cumple:
+
+Si $X$ es una subvariedad lineal de dimensión $n$ su imagen $\beta(X)$ es una subvariedad de dimensión $n$.
+
+\end{lema}
+
+\dem\ 
+
+
+Sea $(P_0, \ldots ,P_n)$ un símplice de la subvariedad $X$ y sea $P'_i = \beta(P_i)$.  Sea $X'$ la subvariedad generada por los puntos primados.  Demostraremos por inducción sobre n que  $ \beta (X) \subseteq  X'$.
+
+Si $n =1$ es evidente. Si  $n>1$, para cada punto $P$ de $X$ existe otro punto $Q$ del hiperplano de la subvariedad 
+$P_1+\ldots + P_n$ tal que $P$, $P_0$, $Q$ están alineados.  Asimismo lo estarán $\beta(P)$, $P'_0$, $\beta(Q)$.  Por hipótesis de inducción $\beta(Q)$ pertenece a  $P_1^{'}+ \ldots+P_n^{'}$, luego $\beta(P)$ es un punto de $X'$.
+
+Si la subvariedad fuera de dimensión menor que $n$, completando el sím\-plice de $X$ hasta un símplice del espacio total, se puede concluir que $\beta(\Pro(E))$ es de dimensión menor que $n$.  Como es epiyectiva el segundo espacio tendría dimensión menor que la que tiene en realidad.  Esta contradicción prueba el teorema.
+
+\begin{cor}
+
+Una colineación transforma puntos independientes en puntos independientes.
+
+\end{cor}
+
+\begin{lema}
+
+La inversa de una colineación es una colineación. La composición de colineacioes es una colineación.  En consecuencia las colineaciones de un espacio proyectivo forman un grupo.  Denotaremos dicho grupo por $PSL(E)$ \index{$PSL(E)$} La aplicación que manda a cada subvariedad a la imagen por una colineación es un morfismo biunívoco de retículos.
+
+\end{lema}
+
+\begin{lema}
+
+Si dos colineaciones coinciden en el complementario de un hiperplano, entonces coinciden en todo el espacio proyectivo.
+
+\end{lema}
+
+\dem\
+
+Si $\varphi$ es una colineación que es la identidad en el complementario de un hiperplano. Sea $P$ un punto del hiperplano y $r$ una recta que corte al hiperplano solamente en el punto $P$.  Todos los puntos de $r$, salvo eventualmente $P$, se mantienen fijos por $\varphi$.  Por ser $\varphi$ una colineación $\varphi(P)$ debe pertenecer a la recta $r$. Por ser biunívoca la colineación, no le queda más remedio que ser $P$.  Entonces $\varphi(P) =P$ para todo punto del hiperplano.
+
+\begin{defi}
+
+Sean $E$ y $E'$ espacios vectoriales sobre un cuerpo $k$, y sea $\sigma$ un automorfismo de $k$ (como cuerpo).  Un isomorfismo de grupos 
+$$
+\varphi : E\rightarrow E'
+$$
+ es una {\sf tranformación semilineal}, \index{transformación semilineal} asociada al automorfismo $\sigma$, cuando verifique
+  $ \varphi (\lambda e)=\sigma (\lambda)\varphi(e)$ para todos los vectores y todos los escalares.
+
+\end {defi}
+
+Una aplicación semilineal transforma rectas vectoriales en rectas vectoriales.  Se puede por tanto hablar de su proyectivización.  Facilmente se ve que la proyectivización de una aplicación semilineal es una colineación. 
+
+El siguiente teorema afirma que este ejemplo engloba a todas las colinea\-ciones.
+
+\begin{teo}[Teorema fundamental.]
+
+
+Toda~colineación entre espacios proyectivos de dimensión mayor que uno es la proyectivización de una transformación semilineal.  En particular, cuando el cuerpo $k$ no admita más automorfismos que la identidad, toda colineación es una proyectividad.  Este es el caso de los números reales.
+
+\end{teo}
+
+\dem\
+
+Remitirse al apéndice o a los apuntes de Rendón.
+
+Sean $\varphi$ y $\varphi'$ transformaciones semilineales de un espacio vectorial $E$, asociadas a los automorfismos $\sigma$ y $\sigma'$.  Si las proyectivizaciones de $\varphi$ y $\varphi'$ coinciden entonces el automorfismo asociado es el mismo para ambas y además $\varphi'=\lambda \varphi$ para cierto escalar no nulo $\lambda$.
+
+En efecto:  $\varphi' \circ \varphi^{-1}=S$ es una aplicación biunívoca de $E$ que conserva la suma y deja invariantes las rectas de $E$.  Así para cada vector no nulo $e$ existe un escalar $\lambda_e$ tal que $S$ actuando sobre $e$ consiste en multiplicarlo por dicho escalar.  Facilmente se comprueba que ese escalar debe ser el mismo para todos vectores y $S$ es una homotecia.  De ello se sigue  que los automorfismos  $\sigma$ y $\sigma'$ coinciden.
+
+Estas consideraciones y el teorema fundamental prueban que las siguien\-tes sucesiones son exactas:
+$$1\rightarrow k \rightarrow SL(E)\rightarrow PSL(E)\rightarrow 1$$
+$$1\rightarrow PGL(E)\rightarrow PSL(E)\rightarrow Aut(k)\rightarrow 1 $$
+donde $SL(E)$ \index{$SL(E)$} es el {\sf grupo de las transformaciones semilineales}  de $E$ y
+$PSL(E)$ el de las colineaciones del espacio proyectivo de $E$.
+
+\subsection{Perspectividades}
+
+Sea $\Pro(E)$ un espacio proyectivo.  Diremos que dos subvariedades $X$ , $Z$ son {\sf suplementarias} \index{subvariedades!suplementarias} si $ \inf (X,Z) = \emptyset $ y $\sup(X,Z)=\Pro(E)$.
+
+Sea $V_X$ el subespacio asociado a $X$ y $V_Z$ el asociado a $Z$.  La proyección canónica $ E\rightarrow E/V_Z$ induce un isomorfismo de $V_X$ en $E/V_Z$, que hace corresponder a cada punto de $X$ un elemento de la radiación $\Pro(E)/Z$.  A un punto $p$ le corresponde $p+Z$.
+
+Si $X'=\pi(V_{X'})$ es otra subvariedad suplementaria de $Z$, llamaremos {\sf pers\-pectividad} \index{perspectividad} de $X$ en $X'$ con {\sf centro} \index{centro de una perspectividad} $Z$ a la proyectividad definida por el isomorfismo canónico $ V_X \simeq E/V\simeq V_{X'} $.
+
+Por definición se tiene, si denotamos por $ \xi $ a la perspectividad, que $\xi(p)=(p+Z) \cap X'$ que es un punto por ser $X$ y $X'$ suplementarias de $Z$.  La aplicación inversa de $\xi$ es justamente la perspectividad de $X'$ en $X$ con centro en $Z$.
+
+\begin{defi}
+
+Sean $X$ y $X'$ subvariedades lineales de un espacio proyectivo de la misma dimensión.  Diremos que una aplicación biunívoca de $X$ en $X'$ es una {\sf proyectividad de Poncelet }\index{proyectividad!de Poncelet} cuando sea la composición de un número finito de perspectividades (eventualmente con centros diversos).
+
+\end{defi}
+
+De acuerdo con la definición, las proyectividades de Poncelet dependen del espacio ambiente donde estén contenidas las subvariedades.
+
+\begin{lema}
+
+La condición necesaria y suficiente para que una proyectividad de $X$ en $X'$ sea una perspectividad es que deje invariantes todos los puntos de $X \cap X'$.
+
+\end{lema}
+
+\dem\
+
+La necesidad es inmediata.  Reciprocamente, sea $\pi(\varphi):X\rightarrow X'$ una proyectividad que deje invariantes los puntos de $X$  y $\varphi$ un representante lineal .  Sin pérdida de generalidad podemos suponer que $\varphi$ es la identidad sobre la intersección de los subespacios asociados a las subvariedades, porque en cualquier caso $\varphi$ es sobre ellos una homotecia.
+
+Sea $V'$ el subespacio de $E$ formado por los vectores $\varphi(e) -e$ cuando $e$ recorre el espacio asociado a $X$.
+
+La condición de que $\varphi$ sea la identidad sobre $ F\cap F'$ implica que $ F\cap V'$ y $ F'\cap V'$ son $\{0\}$.  Por construcción $F'$ está contenido en $ F \oplus  V$ y $V'$ está contenido en $F+F'$, luego
+
+$$F+F'=F+V'=F'+V'$$
+
+Sea $V''$ un suplementario de $F+F'$ y pongamos $V=V'+V''$.  Entonces $X$ y $X'$ son suplementarios de $\pi (V)$ y para cada vector $e$ de $F$ se verifica:
+
+$$ <e> \oplus \: V =\varphi(V)\oplus \: V$$
+porque $\varphi(e)-e$ pertenece a $V$, por tanto $\pi(\varphi)$ es la perspectividad de $X$ en $X'$ con centro $\pi (V)$.
+
+\begin{lema}
+
+La proyectividades de Poncelet son proyectividades.  Además las proyectividades de Poncelet de un subvariedad lineal en si misma forman un grupo, subgrupo del de todas las proyectividades de la subvariedad (entendida como espacio proyectivo).
+
+\end{lema}
+
+Damos el siguiente teorema sin demostración.
+
+\begin{teo}
+
+Toda proyectividad entre subvariedades lineales de $\Pro(E)$ de dimensión $m<\mathrm{dim}\;  \Pro(E)$ es producto de perspectividades.
+
+\end{teo}
+
+\dem\
+
+
+
+En la geometría proyectiva clásica se llamaban proyectividades a las de Poncelet, y el teorema anterior afirma que coinciden con las proyectivizaciones de los isomorfismos lineales, lo que juestifica la definición de proyectividad que hemos elegido.  Más aún, el teorema fundamental prueba que las proyectividades en sentido de Poncelet coinciden con las colineaciones cuando la identidad es el único automorfismo del cuerpo.
+
+\subsection{Homologías}
+
+Diremos que una auto-proyectividad es una {\sf homología} \index{homología} cuando posea un hiperplano de puntos invariantes y no sea la identidad.  Diremos que es una {\sf homología especial}\index{homología!especial} cuando sus únicos puntos invariantes sean los del hiperplano.
+
+Cada homología no especial posee un hiperplano de puntos dobles y un único punto doble no incidente con el hiperplano.  Este último punto se llamará {\sf vértice} \index{vértice} de la homología.  Conocido el hiperplano de puntos dobles y el vértice de una homología especial esta determinada por un punto y su homólogo, porque cualquier proyectividad esta determinada por su acción sobre una referencia.
+
+Si $H=\pi (V)$ es el hiperplano, existe un único representante lineal $\varphi$ que induce la identidad sobre $V$ y $\varphi$ e induce una homotecia en $E/V$ por ser este de dimensión uno.  La razón de esta homotecia se llama {\sf módulo de la homología}  \index{módulo de la homología} no especial dada, y su valor coincide con la razón doble $(V,Q;P, \pi (\varphi)(P))$ donde $P$ es cualquier punto no invariante y $Q$ es el corte de $H$ con la recta $V+P$.
+
+Llamaremos {\sf homologías armónicas} \index{homología!armónica}a las homologías no especiales de \linebreak 
+módulo~-$1$
+
+En una homología especial todas las rectas que unen un punto con su homólogo inciden sobre un mismo punto del hiperplano de puntos dobles, llamado vértice.  El hiperplano de puntos dobles, el vértice, un punto no invariante y su homólogo determinan completamente la homología especial.
+
+Dado un espacio afín real (respectivamente espacio afín) llamaremos {\sf homotecias} \index{homotecia} (respectivamente {\sf traslaciones} \index{traslación}) a las homologias de módulo posi\-tivo (respectivamente especiales) cuyo hiperplano de puntos dobles sea el hiperplano del infinito.
+
+El vértice de una homotecia es su centro y el módulo es su razón.  El vértice de una traslación es su dirección.
+
+\begin{lema}
+
+Sean $e_1$ y $e_2$ dos vectores de $E$ no incidentes con un subespacio $V$.  Existe un automorfismo de $E$ que transforma $e_1$ en $e_2$ y posee un hiperplano de vectores fijos que pasan por $V$.
+
+\end{lema}
+
+\begin{lema}
+Todo automorfismo de un espacio vectorial es producto de automorfismos que tienen algún hiperplano de vectores fijos.
+\end{lema}
+
+\dem\
+
+Es consecuencia inmediata del lema anterior.  Sea $\{e_i\}$ una base y sea $\varphi$ el automorfismo en cuestión.  Existe una transformación lineal $\varphi_0$ con un hiperplano de puntos fijos, que transforma $\varphi(e_0)$ en $e_0$.  Seguir recurrentemente el proceso descrito y concluir.
+
+\begin{cor}
+Toda proyectividad es producto de homologías.  Las homologías son un conjunto generador del grupo lineal proyectivo.
+\end{cor}
+
+{\bf Nota }
+
+La descomposición en producto de homologías no es única.
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
+
+
+Una de las contrucciones típicas en el álgebra lineal es la construcción de espacios cociente.  Damos el análogo en el caso proyectivo.
+
+\begin{defi} \label{def:radiacion}
+
+Si $X$ es una subvariedad lineal de dimensión $d$, llamaremos {\sf radiación} \index{radiación} de
+base $X$ al conjunto de las subvariedades de dimensión $d+1$ que pasan por $X
+$. Se denotará por $\Pro(E)/X$
+
+\end{defi}
+
+La radiación de base X se puede entender como un espacio proyectivo gracias
+al siguiente teorema.
+
+\begin{teo} 
+Si $X=\pi (V)$ es una subvariedad de $\Pro(E)$, entonces la radiación de base $X
+$ se corresponde canónicamente con el espacio proyectivo $\Pro (E/V)$.
+\end{teo}
+
+\textbf{Demostración. }
+
+La proyección canónica $\pi : E \rightarrow E/V$ establece una biyección
+entre los subespacios de $E/V$ y los de $E$ que contienen a $V$, dada por $%
+V' \rightarrow \pi^{-1}(V')$.
+
+ A los subespacios de dimensión $d + 1$
+le corresponden los subespacios unidimensionales de $E/V$. Como el conjunto
+de subespacios de dimensión $d+1$ está en correspondencia biunívoca con la
+radiación de base $X$ se concluye el teorema.
+
+\vspace{1 cm}
+{\bf Ejemplos}
+
+\begin{itemize}
+
+\item Las rectas de $\Pro^2$ que pasan por un punto dado forman una recta proyectiva.
+
+\item Las rectas de $\Pro^3$ que pasan por un punto dado forman un plano proyectivo.
+
+\item Los planos de $\Pro^3$ que pasan por una recta forman una recta proyectiva.
+
+\end{itemize}
+
